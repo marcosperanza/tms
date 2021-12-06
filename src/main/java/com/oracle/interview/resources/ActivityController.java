@@ -1,5 +1,6 @@
 package com.oracle.interview.resources;
 
+import com.codahale.metrics.annotation.Timed;
 import com.oracle.interview.db.ActivityRepository;
 import com.oracle.interview.db.entity.Activity;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -10,6 +11,8 @@ import io.swagger.annotations.ApiResponses;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
 
 @Path("/activity")
@@ -27,39 +30,40 @@ public class ActivityController {
 
     @ApiOperation(value = "Add a new activity ", response = Activity.class, tags = "addActivity")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success|OK"),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
+            @ApiResponse(code = 201, message = "Created"),
+            @ApiResponse(code = 500, message = "In case of error"),
+    })
     @POST
+    @Timed
     @UnitOfWork
-    public Activity add(Activity activity){
-        return repository.addActivity(activity);
+    public Response add(Activity activity){
+        Activity a = repository.addActivity(activity);
+        return Response.created(URI.create("/activity/" + a.getId())).entity(a).build();
     }
 
     @ApiOperation(value = "Get the list of all activities ", response = Iterable.class, tags = "getActivities")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK"),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
+            @ApiResponse(code = 500, message = "In case of error")
+    })
     @GET
+    @Timed
     @UnitOfWork
-    public List<Activity> activities() {
-        return repository.getActivities();
+    public Response activities() {
+        List<Activity> activities = repository.getActivities();
+        return Response.ok().entity(activities).build();
     }
 
     @ApiOperation(value = "Get a single activity ", response = Activity.class, tags = "getActivity")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK", response = Activity.class),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
+            @ApiResponse(code = 500, message = "In case of error") })
     @GET
     @Path("/{id}")
     @UnitOfWork
-    public Activity activity(@PathParam("id") String id) {
-        return repository.getActivityById(id);
+    public Response activity(@PathParam("id") String id) {
+        Activity activity = repository.getActivityById(id);
+        return Response.ok().entity(activity).build();
     }
 
 
@@ -83,14 +87,13 @@ public class ActivityController {
     @ApiOperation(value = "Edit a single activity ", response = Activity.class, tags = "editActivity")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK", response = Activity.class),
-            @ApiResponse(code = 401, message = "not authorized!"),
-            @ApiResponse(code = 403, message = "forbidden!!!"),
-            @ApiResponse(code = 404, message = "not found!!!") })
+            @ApiResponse(code = 500, message = "In case of error") })
     @PUT
-    @Path("/{id}")
     @UnitOfWork
-    public Activity edit(Activity activity){
-        return repository.editActivity(activity);
+    public Response edit(Activity activity){
+        Activity a = repository.editActivity(activity);
+        return Response.ok().entity(a).build();
+
     }
 
 

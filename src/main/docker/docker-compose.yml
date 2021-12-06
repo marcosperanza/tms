@@ -1,0 +1,9 @@
+version: "3.7"
+
+
+services:
+  tms:
+    image: oracle/task-management-system:1
+    ports:
+     - 9090:8080
+
