@@ -42,7 +42,7 @@ public class ActivityController {
     }
 
 
-    // TODO 
+    // TODO
     @DELETE
     @Path("/{id}")
     @UnitOfWork
