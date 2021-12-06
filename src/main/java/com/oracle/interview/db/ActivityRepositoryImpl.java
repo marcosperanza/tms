@@ -5,6 +5,7 @@ import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Default implementation if {@link ActivityRepository}.
@@ -29,16 +30,20 @@ public class ActivityRepositoryImpl extends AbstractDAO<Activity> implements Act
      * {@inheritDoc}
      */
     @Override
-    public List<Activity> getActivities() {
-        return list(namedTypedQuery("com.oracle.activity.findAll"));
+    public Optional<List<Activity>> getActivities() {
+        List<Activity> activities = list(namedTypedQuery("com.oracle.activity.findAll"));
+        if (activities == null || activities.isEmpty())  {
+            return Optional.empty();
+        }
+        return Optional.of(activities);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Activity getActivityById(String id) {
-        return get(id);
+    public Optional<Activity> getActivityById(String id) {
+        return Optional.ofNullable(get(id));
     }
 
     /**

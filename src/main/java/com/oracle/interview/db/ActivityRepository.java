@@ -4,6 +4,7 @@ package com.oracle.interview.db;
 import com.oracle.interview.db.entity.Activity;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The storage APIs for manipulate the activities list
@@ -22,14 +23,14 @@ public interface ActivityRepository {
      * Returns the list of the activities stored
      * @return the list of the activities stored
      */
-    List<Activity> getActivities();
+    Optional<List<Activity>> getActivities();
 
     /**
      * Returns the {@link Activity} with the same id.
      * @param id the id of the activity that you are looking for.
      * @return the {@link Activity} with the id, null otherwise.
      */
-    Activity getActivityById(String id);
+    Optional<Activity> getActivityById(String id);
 
     /**
      * Modify the {@link Activity} with the same id as {@link Activity#getId()}.
