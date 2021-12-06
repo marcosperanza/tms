@@ -11,4 +11,10 @@ How to start the TMS application
 Health Check
 ---
 
-To see your applications health enter url `http://localhost:8081/healthcheck`
+To see your applications health enter url `http://localhost:8080/healthcheck`
+
+
+Dockerize your application
+---
+
+`docker build -t oracle/task-management-system:1 -f target/docker/Dockerfile .`
