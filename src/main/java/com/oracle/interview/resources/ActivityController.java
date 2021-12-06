@@ -37,10 +37,12 @@ public class ActivityController {
     @GET
     @Path("/{id}")
     @UnitOfWork
-    public Activity activity(@PathParam("id") int id) {
-        return null;
+    public Activity activity(@PathParam("id") String id) {
+        return repository.getActivityById(id);
     }
 
+
+    // TODO 
     @DELETE
     @Path("/{id}")
     @UnitOfWork
@@ -48,6 +50,8 @@ public class ActivityController {
         return null;
     }
 
+
+    // TODO
     @DELETE
     @UnitOfWork
     public Activity removeAll() {
@@ -59,7 +63,7 @@ public class ActivityController {
     @Path("/{id}")
     @UnitOfWork
     public Activity edit(Activity activity){
-        return null;
+        return repository.editActivity(activity);
     }
 
 

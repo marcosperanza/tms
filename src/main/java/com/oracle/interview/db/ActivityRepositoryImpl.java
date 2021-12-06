@@ -22,4 +22,14 @@ public class ActivityRepositoryImpl extends AbstractDAO<Activity> implements Act
     public List<Activity> getActivities() {
         return list(namedTypedQuery("com.oracle.activity.findAll"));
     }
+
+    @Override
+    public Activity getActivityById(String id) {
+        return get(id);
+    }
+
+    @Override
+    public Activity editActivity(Activity activity) {
+        return persist(activity);
+    }
 }

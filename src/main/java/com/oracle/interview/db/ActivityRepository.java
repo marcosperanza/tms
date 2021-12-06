@@ -11,4 +11,8 @@ public interface ActivityRepository {
     Activity addActivity(Activity activity);
 
     List<Activity> getActivities();
+
+    Activity getActivityById(String id);
+
+    Activity editActivity(Activity activity);
 }
