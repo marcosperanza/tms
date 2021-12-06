@@ -10,6 +10,8 @@ import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 
 public class TMSApplication extends Application<TMSConfiguration> {
 
@@ -30,28 +32,20 @@ public class TMSApplication extends Application<TMSConfiguration> {
                 return configuration.getDataSourceFactory();
             }
         });
+
+        bootstrap.addBundle(new SwaggerBundle<TMSConfiguration>() {
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(TMSConfiguration configuration) {
+                return configuration.swaggerBundleConfiguration;
+            }
+        });
+
         bootstrap.addBundle(hibernateBundle);
     }
 
     @Override
-    public void run(final TMSConfiguration configuration,
-                    final Environment environment) {
-
+    public void run(final TMSConfiguration configuration, final Environment environment) {
         final ActivityRepository dao = new ActivityRepositoryImpl(hibernateBundle.getSessionFactory());
-
-//        environment.healthChecks().register("template", new TemplateHealthCheck(template));
-//        environment.admin().addTask(new EchoTask());
-
-//        environment.jersey().register(DateRequiredFeature.class);
-
-//        environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.Builder<User>()
-//                .setAuthenticator(new ExampleAuthenticator())
-//                .setAuthorizer(new ExampleAuthorizer())
-//                .setRealm("SUPER SECRET STUFF")
-//                .buildAuthFilter()));
-//
-//
-//        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
         environment.jersey().register(new ActivityController(dao));
     }
 

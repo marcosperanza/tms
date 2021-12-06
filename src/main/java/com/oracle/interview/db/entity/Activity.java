@@ -5,6 +5,11 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Objects;
 
+
+/**
+ * {@code Activity} POJO describes that single activity that will be stored int the persistence and sent to the UI
+ */
+
 @Entity
 @Table(name = "activities")
 @NamedQueries(
