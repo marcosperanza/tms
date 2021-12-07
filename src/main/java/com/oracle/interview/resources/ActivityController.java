@@ -101,11 +101,11 @@ public class ActivityController {
     @PUT
     @UnitOfWork
     public Response edit(Activity activity){
-        if (!repository.getActivityById(activity.getId()).isPresent()) {
+        Optional<Activity> a = repository.editActivity(activity);
+        if (!a.isPresent()) {
             return  Response.status(Response.Status.NOT_FOUND).build();
         }
-        Activity a = repository.editActivity(activity);
-        return Response.ok().entity(a).build();
+        return Response.ok().entity(a.get()).build();
 
     }
 

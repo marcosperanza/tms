@@ -12,12 +12,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "activities")
-@NamedQueries(
-{
-    @NamedQuery(
-            name = "com.oracle.activity.findAll",
-            query = "SELECT a FROM Activity a"
-    )
+@NamedQueries({
+    @NamedQuery(name = "com.oracle.activity.findAll", query = "SELECT a FROM Activity a"),
+    @NamedQuery(name = "com.oracle.activity.update", query = "update Activity set done = :done where id = :id")
 })
 public class Activity {
 
@@ -40,6 +37,14 @@ public class Activity {
     @Column(name = "done")
     private boolean done;
 
+    public Activity() {
+    }
+
+    public Activity(String description, long date, boolean done) {
+        this.description = description;
+        this.date = date;
+        this.done = done;
+    }
 
     public void setId(String id) {
         this.id = id;

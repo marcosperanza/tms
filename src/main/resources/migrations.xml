@@ -14,7 +14,7 @@
             <column name="description" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="date" type="numeric"/>
+            <column name="date" type="java.lang.Long"/>
             <column name="done" type="boolean"/>
         </createTable>
     </changeSet>

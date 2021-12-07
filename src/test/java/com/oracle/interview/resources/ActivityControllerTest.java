@@ -122,7 +122,7 @@ class ActivityControllerTest {
     @Test
     void edit() {
         when(repository.getActivityById(eq("11-22-33"))).thenReturn(Optional.ofNullable(activity));
-        when(repository.editActivity(eq(activity))).thenReturn(activity);
+        when(repository.editActivity(eq(activity))).thenReturn(Optional.ofNullable(activity));
 
         Response found = RULE.target("/activity").request(MediaType .APPLICATION_JSON_TYPE).put(Entity.entity(activity, MediaType.APPLICATION_JSON_TYPE));
 
@@ -140,7 +140,7 @@ class ActivityControllerTest {
 
     @Test
     void editErrorShouldReturn500() {
-        when(repository.getActivityById(eq("11-22-33"))).thenThrow(new IllegalArgumentException("fake"));
+        when(repository.editActivity(any())).thenThrow(new IllegalArgumentException("fake"));
 
         Response found = RULE.target("/activity").request(MediaType .APPLICATION_JSON_TYPE).put(Entity.entity(activity, MediaType.APPLICATION_JSON_TYPE));
 

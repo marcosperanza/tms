@@ -37,5 +37,5 @@ public interface ActivityRepository {
      * @param activity the {@link Activity} to store.
      * @return the {@link Activity} with the id, null if the existing activity doesn't exist.
      */
-    Activity editActivity(Activity activity);
+    Optional<Activity> editActivity(Activity activity);
 }
