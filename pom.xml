@@ -162,6 +162,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>Dockerfile</include>
+                    <include>entrypoint.sh</include>
                 </includes>
                 <targetPath>${project.build.directory}/docker</targetPath>
             </resource>

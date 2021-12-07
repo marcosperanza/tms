@@ -5,9 +5,7 @@ LABEL DESCRIPTION="REST server for a simple task management system"
 
 ADD target/@project.build.finalName@.jar /data/@project.build.finalName@.jar
 ADD ./config.yml /data/config.yml
-
-RUN java -jar /data/@project.build.finalName@.jar db migrate /data/config.yml
-
-CMD java -jar /data/@project.build.finalName@.jar server /data/config.yml
-
+ADD ./target/docker/entrypoint.sh /entrypoint.sh
 EXPOSE 8080
+
+ENTRYPOINT ["/entrypoint.sh"]
