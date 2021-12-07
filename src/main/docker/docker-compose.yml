@@ -4,6 +4,14 @@ version: "3.7"
 services:
   tms:
     image: oracle/task-management-system:1
-    ports:
-     - 9090:8080
+    expose:
+     - 8080
+
+  rest-perf:
+    image: justb4/jmeter
+    depends_on:
+      - tms
+    volumes:
+      - ${SRC}:/src
+    entrypoint: /src/src/main/docker/wait-for-it.sh -t 0 tms:8080 -- /entrypoint.sh -JTARGET_HOST=tms -JTARGET_PORT=8080 -JTARGET_PATH=/activity -n -t /src/src/test/jmeter/test-plan.jmx -l /src/target/jmeter/test-plan.jtl -j /src/target/jmeter/jmeter.log -e -o /src/target/jmeter/report
 

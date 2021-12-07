@@ -23,4 +23,18 @@ After you have built the application run:
 
 To run the app:
 
-`docker-compose -f src/main/docker/docker-compose.yml up`
+`docker-compose -f src/main/docker/docker-compose.yml up tms`
+
+
+Run performance test
+---
+
+There is a performance test plan that can be started easily
+
+`rm -fr target/jmeter && docker-compose -f src/main/docker/docker-compose.yml up tms rest-perf`
+
+the results and reports will be placed into `target/jmeter`
+
+here is an example of jmeter report
+
+![img.png](img.png)
