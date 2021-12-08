@@ -21,6 +21,7 @@ database:
   url: jdbc:h2:./target/db
 
 server:
+  rootPath: /api/*
   applicationConnectors:
     - type: http
       port: 8080
