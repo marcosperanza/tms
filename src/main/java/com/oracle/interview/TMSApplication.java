@@ -5,6 +5,7 @@ import com.oracle.interview.db.ActivityRepositoryImpl;
 import com.oracle.interview.db.entity.Activity;
 import com.oracle.interview.resources.ActivityController;
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -41,6 +42,10 @@ public class TMSApplication extends Application<TMSConfiguration> {
         });
 
         bootstrap.addBundle(hibernateBundle);
+
+        // Other init code
+        bootstrap.addBundle(new AssetsBundle("/apidocs", "/apidocs", "index.html")
+        );
     }
 
     @Override
