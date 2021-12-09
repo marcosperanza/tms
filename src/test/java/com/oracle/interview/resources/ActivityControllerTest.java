@@ -151,10 +151,38 @@ class ActivityControllerTest {
 
     @Test
     void remove() {
+        when(repository.removeById(eq("11-22-33"))).thenReturn(Optional.ofNullable(activity));
+
+        Activity deleted = RULE.target("/activity/11-22-33").request(MediaType .APPLICATION_JSON_TYPE).delete(Activity.class);
+
+        assertEquals(activity.getId(), deleted.getId());
+    }
+
+    @Test
+    void removeNotExistingElementReturn404() {
+        when(repository.removeById(eq("11-22-33"))).thenReturn(Optional.empty());
+
+        Response found = RULE.target("/activity/11-22-33").request(MediaType .APPLICATION_JSON_TYPE).delete();
+
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), found.getStatus());
+    }
+
+    @Test
+    void removeErrorReturn500() {
+        when(repository.removeById(eq("11-22-33"))).thenThrow(new IllegalArgumentException("fake"));
+
+        Response found = RULE.target("/activity/11-22-33").request(MediaType .APPLICATION_JSON_TYPE).delete();
+
+        assertEquals(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), found.getStatus());
     }
 
     @Test
     void removeAll() {
+        when(repository.removeAll()).thenReturn(100);
+
+        Integer deleted = RULE.target("/activity").request(MediaType .APPLICATION_JSON_TYPE).delete(Integer.class);
+
+        assertEquals(100, deleted);
     }
 
 

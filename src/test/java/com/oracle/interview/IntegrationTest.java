@@ -17,7 +17,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Date;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -51,6 +50,39 @@ public class IntegrationTest {
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
     }
 
+    @Test
+    void editActivity() {
+        String url = postActivity(new Activity("TEST", new Date().getTime(), true));
+
+        Activity response = APP.client().target(url).request().get(Activity.class);
+
+        Activity expectiation = new Activity(response.getDescription(), response.getDate(), response.isDone());
+        expectiation.setId(response.getId());
+        expectiation.setDone(true);
+
+        putActivity(expectiation);
+
+        response = APP.client().target(url).request().get(Activity.class);
+
+        assertEquals(expectiation, response);
+
+    }
+
+
+    @Test
+    void removeActivity() {
+        String url = postActivity(new Activity("TEST", new Date().getTime(), true));
+
+        Activity response = APP.client().target(url).request().get(Activity.class);
+
+        deleteActivity(response.getId());
+
+        Response notFound = APP.client().target(url).request().get();
+
+        assertEquals(Response.Status.NOT_FOUND.getStatusCode(), notFound.getStatus());
+
+    }
+
     private String postActivity(Activity activity) {
         Response post = APP.client().target("http://localhost:" + APP.getLocalPort() + "/activity")
                 .request()
@@ -58,5 +90,21 @@ public class IntegrationTest {
 
         assertEquals(201, post.getStatus());
         return post.getStringHeaders().get("location").get(0);
+    }
+
+    private void putActivity(Activity activity) {
+        Response post = APP.client().target("http://localhost:" + APP.getLocalPort() + "/activity")
+                .request()
+                .put(Entity.entity(activity, MediaType.APPLICATION_JSON_TYPE));
+
+        assertEquals(200, post.getStatus());
+    }
+
+    private void deleteActivity(String id) {
+        Response post = APP.client().target("http://localhost:" + APP.getLocalPort() + "/activity/" + id)
+                .request()
+                .delete();
+
+        assertEquals(200, post.getStatus());
     }
 }

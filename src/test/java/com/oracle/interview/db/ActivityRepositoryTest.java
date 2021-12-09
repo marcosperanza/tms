@@ -108,4 +108,55 @@ class ActivityRepositoryTest {
 
         assertFalse(activityById.isPresent());
     }
+
+    @Test
+    void removeAll() {
+        daoTestRule.inTransaction(() -> {
+            activityRepository.addActivity(new Activity("TEST", 1, false));
+            activityRepository.addActivity(new Activity("TEST 2", 1, false));
+            activityRepository.addActivity(new Activity("TEST 3", 1, true));
+        });
+
+        daoTestRule.inTransaction(() -> {
+            int deleted = activityRepository.removeAll();
+            assertEquals(3, deleted);
+
+        });
+
+    }
+
+    @Test
+    void removebyId() {
+
+        final Activity[] activity = {null};
+        daoTestRule.inTransaction(() -> {
+            activityRepository.addActivity(new Activity("TEST", 1, false));
+            activity[0] = activityRepository.addActivity(new Activity("TEST 2", 1, false));
+            activityRepository.addActivity(new Activity("TEST 3", 1, true));
+        });
+
+        daoTestRule.inTransaction(() -> {
+            Optional<Activity> deleted = activityRepository.removeById(activity[0].getId());
+            assertTrue(deleted.isPresent());
+            assertEquals(activity[0].getId(), deleted.get().getId());
+
+        });
+
+    }
+
+    @Test
+    void removeByIdWithNotExistIdShouldReturnEmpty() {
+
+        daoTestRule.inTransaction(() -> {
+            activityRepository.addActivity(new Activity("TEST", 1, false));
+            activityRepository.addActivity(new Activity("TEST 2", 1, false));
+            activityRepository.addActivity(new Activity("TEST 3", 1, true));
+        });
+
+        daoTestRule.inTransaction(() -> {
+            Optional<Activity> deleted = activityRepository.removeById("fake");
+            assertFalse(deleted.isPresent());
+        });
+
+    }
 }

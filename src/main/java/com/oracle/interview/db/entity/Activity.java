@@ -14,7 +14,9 @@ import java.util.Objects;
 @Table(name = "activities")
 @NamedQueries({
     @NamedQuery(name = "com.oracle.activity.findAll", query = "SELECT a FROM Activity a"),
-    @NamedQuery(name = "com.oracle.activity.update", query = "update Activity set done = :done where id = :id")
+    @NamedQuery(name = "com.oracle.activity.update", query = "update Activity set done = :done where id = :id"),
+    @NamedQuery(name = "com.oracle.activity.deleteAll", query = "delete from Activity "),
+    @NamedQuery(name = "com.oracle.activity.deleteById", query = "delete from Activity where id = :id")
 })
 public class Activity {
 

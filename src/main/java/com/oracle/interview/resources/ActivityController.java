@@ -29,7 +29,7 @@ public class ActivityController {
     }
 
 
-    @ApiOperation(value = "Add a new activity ", response = Activity.class, tags = "addActivity")
+    @ApiOperation(value = "Add a new activity ", response = Activity.class, tags = "ActivityController")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "Created"),
             @ApiResponse(code = 500, message = "In case of error"),
@@ -42,7 +42,7 @@ public class ActivityController {
         return Response.created(URI.create("/activity/" + a.getId())).entity(a).build();
     }
 
-    @ApiOperation(value = "Get the list of all activities ", response = Iterable.class, tags = "getActivities")
+    @ApiOperation(value = "Get the list of all activities ", response = Iterable.class, tags = "ActivityController")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK"),
             @ApiResponse(code = 204, message = "No content if no activities are found"),
@@ -59,7 +59,7 @@ public class ActivityController {
         return Response.ok().entity(activities).build();
     }
 
-    @ApiOperation(value = "Get a single activity ", response = Activity.class, tags = "getActivity")
+    @ApiOperation(value = "Get a single activity ", response = Activity.class, tags = "ActivityController")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK", response = Activity.class),
             @ApiResponse(code = 404, message = "Not found"),
@@ -76,24 +76,36 @@ public class ActivityController {
     }
 
 
-    // TODO
+    @ApiOperation(value = "Remove a single activity ", response = Activity.class, tags = "ActivityController")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK", response = Activity.class),
+            @ApiResponse(code = 404, message = "Not found"),
+            @ApiResponse(code = 500, message = "In case of error") })
     @DELETE
     @Path("/{id}")
     @UnitOfWork
-    public Activity remove(@PathParam("id") int id) {
-        return null;
+    public Response remove(@PathParam("id") String id) {
+        Optional<Activity> activity = repository.removeById(id);
+        if (!activity.isPresent()) {
+            return  Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.status(Response.Status.OK).entity(activity.get()).build();
     }
 
 
-    // TODO
+    @ApiOperation(value = "Remove all activities", response = Activity.class, tags = "ActivityController")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK: number of deleter activities", response = Integer.class),
+            @ApiResponse(code = 500, message = "In case of error") })
     @DELETE
     @UnitOfWork
-    public Activity removeAll() {
-        return null;
+    public Response removeAll() {
+        int entity = repository.removeAll();
+        return Response.status(Response.Status.OK).entity(entity).build();
     }
 
 
-    @ApiOperation(value = "Edit a single activity ", response = Activity.class, tags = "editActivity")
+    @ApiOperation(value = "Edit a single activity ", response = Activity.class, tags = "ActivityController")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success|OK", response = Activity.class),
             @ApiResponse(code = 404, message = "Not found"),

@@ -38,4 +38,17 @@ public interface ActivityRepository {
      * @return the {@link Activity} with the id, null if the existing activity doesn't exist.
      */
     Optional<Activity> editActivity(Activity activity);
+
+    /**
+     * Remove all stored  activities
+     * @return the dropped number of activities
+     */
+    int removeAll();
+
+    /**
+     * Remove activity with the id
+     * @param id the id of the  {@link Activity} that should be dropped
+     * @return the dropped  {@link Activity}
+     */
+    Optional<Activity> removeById(String id);
 }

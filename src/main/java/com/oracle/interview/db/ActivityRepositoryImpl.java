@@ -3,6 +3,7 @@ package com.oracle.interview.db;
 import com.oracle.interview.db.entity.Activity;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.transaction.Transactional;
@@ -63,4 +64,26 @@ public class ActivityRepositoryImpl extends AbstractDAO<Activity> implements Act
         a.setDone(activity.isDone());
         return Optional.ofNullable(persist(a));
     }
+
+    @Override
+    public int removeAll() {
+        Query<?> activityQuery = namedQuery("com.oracle.activity.deleteAll");
+        return activityQuery.executeUpdate();
+    }
+
+    @Override
+    public Optional<Activity> removeById(String id) {
+        Optional<Activity> activityById = getActivityById(id);
+        if (!activityById.isPresent()) {
+            return Optional.empty();
+        }
+        Query<?> activityQuery = namedQuery("com.oracle.activity.deleteById");
+        activityQuery.setParameter("id", id);
+        int deleted = activityQuery.executeUpdate();
+        if (deleted == 0) {
+            return Optional.empty();
+        }
+        return activityById;
+    }
+
 }
