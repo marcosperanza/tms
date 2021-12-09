@@ -55,11 +55,16 @@ Dockerize your application
 
 After you have built the application run:
 
-`docker build -t oracle/task-management-system:1 -f target/docker/Dockerfile .`
+`docker build -t marcosperanza79/tms:1 -f target/docker/Dockerfile .`
 
-To run the app:
+To run the server:
 
 `docker-compose -f src/main/docker/docker-compose.yml up tms`
+
+
+To run the server and ui:
+
+`docker-compose -f src/main/docker/docker-compose.yml up tms tms-ui`
 
 
 Run performance test

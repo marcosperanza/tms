@@ -3,12 +3,12 @@ version: "3.7"
 
 services:
   tms:
-    image: oracle/task-management-system:1
+    image: marcosperanza79/tms:1
     expose:
      - 8080
 
   tms-ui:
-    image: oracle/task-management-system-ui:1
+    image: marcosperanza79/tms-ui:1
     environment:
       - TMS_SERVICES=http://tms:8080
     ports:
