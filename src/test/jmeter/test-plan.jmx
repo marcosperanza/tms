@@ -15,19 +15,19 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="TARGET_HOST" elementType="Argument">
             <stringProp name="Argument.name">TARGET_HOST</stringProp>
-            <stringProp name="Argument.value">${__P(TARGET_HOST,192.168.99.100)}</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_HOST,localhost)}</stringProp>
             <stringProp name="Argument.desc">target server domain/IP for testing</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="TARGET_PORT" elementType="Argument">
             <stringProp name="Argument.name">TARGET_PORT</stringProp>
-            <stringProp name="Argument.value">${__P(TARGET_PORT,9090)}</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_PORT,8080)}</stringProp>
             <stringProp name="Argument.desc">target port on TARGET_HOST for testing</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="TARGET_PATH" elementType="Argument">
             <stringProp name="Argument.name">TARGET_PATH</stringProp>
-            <stringProp name="Argument.value">${__P(TARGET_PATH,/activity)}</stringProp>
+            <stringProp name="Argument.value">${__P(TARGET_PATH,/api/activity)}</stringProp>
             <stringProp name="Argument.desc">target path on target server</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -93,7 +93,7 @@ Connect to 5s</stringProp>
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
-    &quot;description&quot;:&quot;test&quot;,&#xd;
+    &quot;description&quot;:&quot;perf-test&quot;,&#xd;
     &quot;date&quot;: 21111,&#xd;
     &quot;done&quot;: false&#xd;
 }</stringProp>
