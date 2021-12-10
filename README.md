@@ -57,20 +57,20 @@ After you have built the application run:
 
 `docker build -t marcosperanza79/tms:1 -f target/docker/Dockerfile .`
 
-To run the server:
 
-`docker-compose -f src/main/docker/docker-compose.yml up tms`
 
+### Run production
+
+`docker-compose -f src/main/docker/docker-compose.yml up`
+
+
+### Run dev environment
 
 To run the server and ui:
 
 `docker-compose -f src/main/docker/docker-compose.yml up tms tms-ui`
 
-
-Run performance test
----
-
-There is a performance test plan that can be started easily
+There is also a performance test plan that can be started easily
 
 `rm -fr target/jmeter && docker-compose -f src/main/docker/docker-compose.yml up tms rest-perf`
 

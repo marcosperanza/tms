@@ -1,5 +1,7 @@
 version: "3.7"
 
+# Compose file for production.
+# Needs marcosperanza79/tms and marcosperanza79/tms-ui images
 
 services:
   tms:
@@ -13,12 +15,4 @@ services:
       - TMS_SERVICES=http://tms:8080
     ports:
       - 80:80
-
-  rest-perf:
-    image: justb4/jmeter
-    depends_on:
-      - tms
-    volumes:
-      - ${SRC}:/src
-    entrypoint: /src/src/main/docker/wait-for-it.sh -t 0 tms:8080 -- /entrypoint.sh -JTARGET_HOST=tms -JTARGET_PORT=8080 -JTARGET_PATH=/activity -n -t /src/src/test/jmeter/test-plan.jmx -l /src/target/jmeter/test-plan.jtl -j /src/target/jmeter/jmeter.log -e -o /src/target/jmeter/report
 
