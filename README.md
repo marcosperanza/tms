@@ -59,7 +59,7 @@ After you have built the application run:
 
 
 
-### Run production
+### Run production with docker
 
 `docker-compose -f src/main/docker/docker-compose.yml up`
 
@@ -79,3 +79,21 @@ the results and reports will be placed into `target/jmeter`
 here is an example of jmeter report
 
 ![img.png](docs/jmeter.png)
+
+
+### Deploy on Oracle Cloud OKE (k8b) 
+
+In the production environment create a OKE cluster  
+
+```
+kubectl create -f src/main/k8b/k8b-tms-prod.deployment.yml
+kubectl expose deployment tms --port=80 --type=LoadBalancer
+```
+
+inspect the loadbalancer 
+
+```
+kubectl get service tms
+```
+
+
