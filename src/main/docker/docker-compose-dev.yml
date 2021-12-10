@@ -6,7 +6,7 @@ version: "3.7"
 
 services:
   tms:
-    image: marcosperanza79/tms:1
+    image: marcosperanza79/tms:latest
     expose:
      - 8080
 

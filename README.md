@@ -55,7 +55,7 @@ Dockerize your application
 
 After you have built the application run:
 
-`docker build -t marcosperanza79/tms:1 -f target/docker/Dockerfile .`
+`docker build -t marcosperanza79/tms:latest -f target/docker/Dockerfile .`
 
 
 
