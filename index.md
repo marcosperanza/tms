@@ -24,9 +24,11 @@ The ui is reactive to the small screen, a breakpoint has been added on medium sc
 widget has been used.
 
 This is an example of the home page on a iPhone 5/SE
+
 ![home-mobile](mobile-home.png)
 
 and this is the dedicated calendar data chooser:
+
 ![calendar-mobile](calendar-mobile.png)
 
 
