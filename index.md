@@ -8,7 +8,7 @@
 - [About UI implementation](https://marcosperanza.github.io/tms/about-implementation-ui.html)
 - [Deployment](https://marcosperanza.github.io/tms/deployment.html)
 - [CI/CD](https://marcosperanza.github.io/tms/ci-cd.html)
-- [Code Coverage report](https://marcosperanza.github.io/tms/jacoco/index.html) /  [Code Coverage UI report](https://marcosperanza.github.io/tms/coverage/lcov-report/index.html)
+- [Code Coverage report](https://marcosperanza.github.io/tms/jacoco/index.html) /  [Code Coverage UI report](https://marcosperanza.github.io/tms/lcov-report/index.html)
 
 
 ### Application
