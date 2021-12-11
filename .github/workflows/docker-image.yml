@@ -50,7 +50,6 @@ jobs:
     - name: Publish generated content to GitHub Pages
       uses: tsunematsu21/actions-publish-gh-pages@v1.0.2
       with:
-        dir: target/site/jacoco
+        dir: target/site
         branch: gh-pages
-        repo: marcosperanza/tms-report-site
         token: ${{ secrets.ACCESS_TOKEN }}
