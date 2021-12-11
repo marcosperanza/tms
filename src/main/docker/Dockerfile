@@ -5,7 +5,8 @@ LABEL DESCRIPTION="REST server for a simple task management system"
 
 ADD target/@project.build.finalName@.jar /data/@project.build.finalName@.jar
 ADD ./config.yml /data/config.yml
-ADD ./target/docker/entrypoint.sh /entrypoint.sh
+ADD --chmod=755 ./target/docker/entrypoint.sh /entrypoint.sh
+
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint.sh"]

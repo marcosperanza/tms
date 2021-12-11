@@ -7,6 +7,7 @@
 - [About implementation](https://marcosperanza.github.io/tms/about-implementation.html)
 - [Deployment](https://marcosperanza.github.io/tms/deployment.html)
 - [User interface implementation details](https://marcosperanza.github.io/tms/about-implementation-ui.html)
+- [CI/CD](https://marcosperanza.github.io/tms/ci-cd.html)
 
 
 ### Application
