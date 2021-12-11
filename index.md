@@ -5,9 +5,10 @@
 
 # Table of content
 - [About implementation](https://marcosperanza.github.io/tms/about-implementation.html)
+- [About UI implementation](https://marcosperanza.github.io/tms/about-implementation-ui.html)
 - [Deployment](https://marcosperanza.github.io/tms/deployment.html)
-- [User interface implementation details](https://marcosperanza.github.io/tms/about-implementation-ui.html)
 - [CI/CD](https://marcosperanza.github.io/tms/ci-cd.html)
+- [Code Coverage report](https://marcosperanza.github.io/tms/jacoco/index.html)
 
 
 ### Application
