@@ -4,15 +4,17 @@ version: "3.7"
 # Needs marcosperanza79/tms and marcosperanza79/tms-ui images
 
 services:
+  # The server docker image: please see https://github.com/marcosperanza/tms
   tms:
     image: marcosperanza79/tms:latest
     expose:
-     - 8080
+      - 8080
 
+  # The UI docker image: please see https://github.com/marcosperanza/tms-ui
   tms-ui:
-    image: marcosperanza79/tms-ui:1
+    image: marcosperanza79/tms-ui:latest
     environment:
       - TMS_SERVICES=http://tms:8080
     ports:
-      - 80:80
+      - "80:80"
 
