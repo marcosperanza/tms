@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TMSApplication.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TMS</a> &gt; <a href="index.source.html" class="el_package">com.oracle.interview</a> &gt; <span class="el_source">TMSApplication.java</span></div><h1>TMSApplication.java</h1><pre class="source lang-java linenums">package com.oracle.interview;
+
+import com.oracle.interview.db.ActivityRepository;
+import com.oracle.interview.db.ActivityRepositoryImpl;
+import com.oracle.interview.db.entity.Activity;
+import com.oracle.interview.resources.ActivityController;
+import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
+import io.dropwizard.setup.Bootstrap;
+import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+
+<span class="fc" id="L17">public class TMSApplication extends Application&lt;TMSConfiguration&gt; {</span>
+
+    public static void main(final String[] args) throws Exception {
+<span class="nc" id="L20">        new TMSApplication().run(args);</span>
+<span class="nc" id="L21">    }</span>
+
+    @Override
+    public String getName() {
+<span class="fc" id="L25">        return &quot;TMS&quot;;</span>
+    }
+
+    @Override
+    public void initialize(final Bootstrap&lt;TMSConfiguration&gt; bootstrap) {
+<span class="fc" id="L30">        bootstrap.addBundle(new MigrationsBundle&lt;TMSConfiguration&gt;() {</span>
+            @Override
+            public DataSourceFactory getDataSourceFactory(TMSConfiguration configuration) {
+<span class="fc" id="L33">                return configuration.getDataSourceFactory();</span>
+            }
+        });
+
+<span class="fc" id="L37">        bootstrap.addBundle(new SwaggerBundle&lt;TMSConfiguration&gt;() {</span>
+            @Override
+            protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(TMSConfiguration configuration) {
+<span class="fc" id="L40">                return configuration.swaggerBundleConfiguration;</span>
+            }
+        });
+
+<span class="fc" id="L44">        bootstrap.addBundle(hibernateBundle);</span>
+
+        // Other init code
+<span class="fc" id="L47">        bootstrap.addBundle(new AssetsBundle(&quot;/apidocs&quot;, &quot;/apidocs&quot;, &quot;index.html&quot;)</span>
+        );
+<span class="fc" id="L49">    }</span>
+
+    @Override
+    public void run(final TMSConfiguration configuration, final Environment environment) {
+<span class="fc" id="L53">        final ActivityRepository dao = new ActivityRepositoryImpl(hibernateBundle.getSessionFactory());</span>
+<span class="fc" id="L54">        environment.jersey().register(new ActivityController(dao));</span>
+<span class="fc" id="L55">    }</span>
+
+
+<span class="fc" id="L58">    private final HibernateBundle&lt;TMSConfiguration&gt; hibernateBundle =</span>
+<span class="fc" id="L59">            new HibernateBundle&lt;TMSConfiguration&gt;(Activity.class) {</span>
+                @Override
+                public DataSourceFactory getDataSourceFactory(TMSConfiguration configuration) {
+<span class="fc" id="L62">                    return configuration.getDataSourceFactory();</span>
+                }
+            };
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
