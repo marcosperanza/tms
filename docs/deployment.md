@@ -63,4 +63,4 @@ the results and reports will be placed into `target/jmeter`
 
 here is an example of jmeter report
 
-![img.png](docs/jmeter.png)
+![img.png](jmeter.png)
