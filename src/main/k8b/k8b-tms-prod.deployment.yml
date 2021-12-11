@@ -25,5 +25,26 @@ spec:
 
         - name: tms
           image: marcosperanza79/tms:latest
+        env:
+          - name: DB_DRIVER
+            value: com.mysql.cj.jdbc.Driver
+
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: database_access
+                key: username
+
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: database_access
+                key: password
+
+          - name: DB_URL
+            valueFrom:
+              secretKeyRef:
+                name: database_access
+                key: url
           ports:
             - containerPort: 8080

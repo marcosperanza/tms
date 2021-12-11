@@ -9,16 +9,16 @@ logging:
 database:
 
   # the name of your JDBC driver
-  driverClass: org.h2.Driver
+  driverClass: ${DB_DRIVER:-org.h2.Driver}
 
   # the username
-  user: sa
+  user: ${DB_USER_NAME:-sa}
 
   # the password
-  password: sa
+  password: ${DB_PASS:-sa}
 
   # the JDBC URL
-  url: jdbc:h2:./target/db
+  url: ${DB_URL:-jdbc:h2:./target/db}
 
 server:
   rootPath: /api/*

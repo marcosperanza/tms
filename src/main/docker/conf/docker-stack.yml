@@ -7,6 +7,11 @@ services:
   # The server docker image: please see https://github.com/marcosperanza/tms
   tms:
     image: marcosperanza79/tms:latest
+    environment:
+      - DB_DRIVER=com.mysql.cj.jdbc.Driver
+      - DB_USER=
+      - DB_PASS=
+      - DB_URL=
     expose:
       - 8080
 

@@ -6,6 +6,8 @@ import com.oracle.interview.db.entity.Activity;
 import com.oracle.interview.resources.ActivityController;
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.migrations.MigrationsBundle;
@@ -27,6 +29,12 @@ public class TMSApplication extends Application<TMSConfiguration> {
 
     @Override
     public void initialize(final Bootstrap<TMSConfiguration> bootstrap) {
+        // Enable variable substitution with environment variables
+        bootstrap.setConfigurationSourceProvider(
+                new SubstitutingSourceProvider(bootstrap.getConfigurationSourceProvider(),
+                        new EnvironmentVariableSubstitutor(false)
+                )
+        );
         bootstrap.addBundle(new MigrationsBundle<TMSConfiguration>() {
             @Override
             public DataSourceFactory getDataSourceFactory(TMSConfiguration configuration) {
