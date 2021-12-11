@@ -43,6 +43,8 @@ All project docker images are published into [Docker Hub](https://hub.docker.com
 - [TMS](https://hub.docker.com/u/marcosperanza79/tms)
 - [TMS-UI](https://hub.docker.com/u/marcosperanza79/tms-ui)
 
+_The docker images will be published by guthub workflows_
+
 #### Docker/SWARM services
 
 - **Compose**
