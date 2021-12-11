@@ -1,7 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
 TMS,com.oracle.interview.db,ActivityRepositoryImpl,4,91,3,7,2,25,3,9,0,7
 TMS,com.oracle.interview.db.entity,Activity,29,84,6,8,1,23,7,12,1,11
-TMS,com.oracle.interview,TMSApplication,6,54,0,0,2,11,1,4,1,4
+TMS,com.oracle.interview,TMSApplication,6,65,0,0,2,13,1,4,1,4
 TMS,com.oracle.interview,TMSConfiguration,3,19,0,0,1,7,1,4,1,4
 TMS,com.oracle.interview,TMSApplication.new HibernateBundle() {...},0,11,0,0,0,2,0,2,0,2
 TMS,com.oracle.interview,TMSApplication.new SwaggerBundle() {...},0,9,0,0,0,2,0,2,0,2
