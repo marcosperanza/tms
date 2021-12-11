@@ -33,7 +33,7 @@ docker stack deploy -c src/main/docker/conf/docker-stack.yml tms
 You need a production k8b cluster. i.e. Oracle Kubernates Cluster Service
 
 ```
-kubectl create -f src/main/k8b/k8b-tms-prod.deployment.yml
+kubectl apply -f https://raw.githubusercontent.com/marcosperanza/tms/master/src/main/k8b/k8b-tms-prod.deployment.yml
 kubectl expose deployment tms --port=80 --type=LoadBalancer
 ```
 
