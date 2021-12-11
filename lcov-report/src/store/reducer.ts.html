@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.35% </span>
+                <span class="strong">94.87% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/39</span>
+                <span class='fraction'>37/39</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/16</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/38</span>
+                <span class='fraction'>36/38</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -321,12 +321,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,7 +344,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -372,7 +372,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,16 +427,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -571,8 +571,8 @@ const reducer = (
                     edit: state.progress.edit.concat(action.payload.id!)
                 }
             }
-<span class="branch-3 cbranch-no" title="branch not covered" >        case REMOVE_ACTIVITY_RQ:</span>
-<span class="cstat-no" title="statement not covered" >            return {</span>
+        case REMOVE_ACTIVITY_RQ:
+            return {
                 ...state,
                 progress: {
                     ...state.progress,
@@ -626,17 +626,17 @@ const reducer = (
                 },
                 activities: state.activities.concat(newArticle).sort(<span class="fstat-no" title="function not covered" >(a</span>1,a2) =&gt; <span class="cstat-no" title="statement not covered" >a2.date! - a1.date!)</span>,
             }
-<span class="branch-7 cbranch-no" title="branch not covered" >        case REMOVE_ACTIVITY:</span>
-            let idx = <span class="cstat-no" title="statement not covered" >findActivityIndex(state, action.payload.id!);</span>
-<span class="cstat-no" title="statement not covered" >            if (idx === -1) {</span>
+        case REMOVE_ACTIVITY:
+            let idx = findActivityIndex(state, action.payload.id!);
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (idx === -1) {
 <span class="cstat-no" title="statement not covered" >                return state</span>
             }
-            const cloned = <span class="cstat-no" title="statement not covered" >[...state.activities];</span>
-<span class="cstat-no" title="statement not covered" >            cloned.splice(idx, 1);</span>
+            const cloned = [...state.activities];
+            cloned.splice(idx, 1);
 &nbsp;
-            const r = <span class="cstat-no" title="statement not covered" >[...state.progress.remove];</span>
-<span class="cstat-no" title="statement not covered" >            r.splice(state.progress.remove.indexOf(action.payload.id!), 1)</span>
-<span class="cstat-no" title="statement not covered" >            return {</span>
+            const r = [...state.progress.remove];
+            r.splice(state.progress.remove.indexOf(action.payload.id!), 1)
+            return {
                 ...state,
                 progress: {
                     ...state.progress,
@@ -670,7 +670,7 @@ export default reducer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Sat Dec 11 2021 21:39:11 GMT+0000 (Coordinated Universal Time)
+                at Sat Dec 11 2021 21:46:43 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
