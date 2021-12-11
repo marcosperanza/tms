@@ -32,19 +32,19 @@ spec:
           - name: DB_USER
             valueFrom:
               secretKeyRef:
-                name: database_access
+                name: database-access
                 key: username
 
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                name: database_access
+                name: database-access
                 key: password
 
           - name: DB_URL
             valueFrom:
               secretKeyRef:
-                name: database_access
+                name: database-access
                 key: url
           ports:
             - containerPort: 8080
