@@ -72,6 +72,8 @@ The BDD test suite test the complete user interaction:
 
 The test suite uses an environment variable for locating the target url, if not set a default value is used `http://localhost:3000`
 
+**WARNING** the test suite will clean the database, DO NOT RUN IN PRODUCTION.
+
 ```
 npm install
 export TARGET_URL=http://my_stage_url
