@@ -319,6 +319,9 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/javadoc/apidocs</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
