@@ -320,7 +320,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <outputDirectory>${project.build.directory}/javadoc/apidocs</outputDirectory>
+                    <outputDirectory>${project.build.directory}/site/apidocs</outputDirectory>
                 </configuration>
                 <executions>
                     <execution>
