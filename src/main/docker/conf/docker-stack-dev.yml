@@ -30,5 +30,5 @@ services:
       - tms
     volumes:
       - ${SRC}:/src
-    entrypoint: /src/src/main/docker/wait-for-it.sh -t 0 tms:8080 -- /entrypoint.sh -JTARGET_HOST=tms -JTARGET_PORT=8080 -JTARGET_PATH=/activity -n -t /src/src/test/jmeter/test-plan.jmx -l /src/target/jmeter/test-plan.jtl -j /src/target/jmeter/jmeter.log -e -o /src/target/jmeter/report
+    entrypoint: /src/src/main/docker/wait-for-it.sh -t 0 tms:8080 -- /entrypoint.sh -JTARGET_HOST=tms -JTARGET_PORT=8080 -JTARGET_PATH=/api/activity -n -t /src/src/test/jmeter/test-plan.jmx -l /src/target/jmeter/test-plan.jtl -j /src/target/jmeter/jmeter.log -e -o /src/target/jmeter/report
 
