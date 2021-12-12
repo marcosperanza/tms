@@ -28,11 +28,17 @@ Deploy on docker swarm Server and UI
 docker stack deploy -c src/main/docker/conf/docker-stack.yml tms
 ```
 
-#### Kubernates
+#### Kubernetes
 
-You need a production k8s cluster. i.e. Oracle Kubernates Cluster Service
+You need a production k8s cluster. i.e. Oracle Kubernetes Cluster Service
 
 ```
+kubectl create secret generic database-access \
+  --from-literal=username=sa \
+  --from-literal=password=sa \
+  --from-literal=driver=org.h2.Driver \
+  --from-literal=url=./target/db
+
 kubectl apply -f https://raw.githubusercontent.com/marcosperanza/tms/master/src/main/k8s/k8s-tms-prod.deployment.yml
 kubectl expose deployment tms --port=80 --type=LoadBalancer
 ```
