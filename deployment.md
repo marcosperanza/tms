@@ -37,7 +37,7 @@ kubectl create secret generic database-access \
   --from-literal=username=sa \
   --from-literal=password=sa \
   --from-literal=driver=org.h2.Driver \
-  --from-literal=url=./target/db
+  --from-literal=url=jdbc:h2:./target/db
 
 kubectl apply -f https://raw.githubusercontent.com/marcosperanza/tms/master/src/main/k8s/k8s-tms-prod.deployment.yml
 kubectl expose deployment tms --port=80 --type=LoadBalancer
