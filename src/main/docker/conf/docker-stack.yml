@@ -6,7 +6,7 @@ version: "3.7"
 services:
   # The server docker image: please see https://github.com/marcosperanza/tms
   tms:
-    image: marcosperanza79/tms:test
+    image: marcosperanza79/tms
 
     env_file:
       - env.prod
