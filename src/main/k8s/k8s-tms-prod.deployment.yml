@@ -27,7 +27,10 @@ spec:
           image: marcosperanza79/tms:latest
           env:
           - name: DB_DRIVER
-            value: com.mysql.cj.jdbc.Driver
+            valueFrom:
+              secretKeyRef:
+                name: database-access
+                key: driver
 
           - name: DB_USER
             valueFrom:
