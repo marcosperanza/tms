@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: tms-ui
-          image: marcosperanza79/tms-ui:latest
+          image: marcosperanza79/tms-ui
           env:
             - name: TMS_SERVICES
               value: "http://localhost:8080"
@@ -24,7 +24,7 @@ spec:
             - containerPort: 80
 
         - name: tms
-          image: marcosperanza79/tms:latest
+          image: marcosperanza79/tms
           env:
           - name: DB_DRIVER
             valueFrom:

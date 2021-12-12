@@ -6,18 +6,16 @@ version: "3.7"
 services:
   # The server docker image: please see https://github.com/marcosperanza/tms
   tms:
-    image: marcosperanza79/tms:latest
-    environment:
-      - DB_DRIVER=com.mysql.cj.jdbc.Driver
-      - DB_USER=
-      - DB_PASS=
-      - DB_URL=
+    image: marcosperanza79/tms:test
+
+    env_file:
+      - env.prod
     expose:
       - 8080
 
   # The UI docker image: please see https://github.com/marcosperanza/tms-ui
   tms-ui:
-    image: marcosperanza79/tms-ui:latest
+    image: marcosperanza79/tms-ui
     environment:
       - TMS_SERVICES=http://tms:8080
     ports:
