@@ -12,6 +12,8 @@ _The docker images will be published by github workflows_
 
 #### Docker/SWARM services
 
+The docker compose files use an `src/main/docker/conf/env.prod` file for defining the production coordinate. 
+
 - **Compose**
 
 Deploy on the same node Server and UI
