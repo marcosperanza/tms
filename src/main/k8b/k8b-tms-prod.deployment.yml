@@ -25,7 +25,7 @@ spec:
 
         - name: tms
           image: marcosperanza79/tms:latest
-        env:
+          env:
           - name: DB_DRIVER
             value: com.mysql.cj.jdbc.Driver
 
