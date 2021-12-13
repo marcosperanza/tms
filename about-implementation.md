@@ -11,16 +11,42 @@ Please find the definition on the project _resource_ folder.
 
 #### Entity
 
-The first implementation uses a single entity [Activity.java](https://github.com/marcosperanza/tms/blob/17bf95ea5b5b6e726f5ffe6872c655fdd104bbcc/src/main/java/com/oracle/interview/db/entity/Activity.java) to manage the _task_ list
+The first implementation uses two entities 
+- [Activity.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/db/entity/Activity.java) to manage the _task_ list
+- [User.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/db/entity/User.java) to manage the _users_ list
 
-![activity.png](activity.png)
+predefined users are
+- username: auth
+- password: secret
 
-The entity contains all task created by the user. The DB access is regulated from an interface [ActivityRepository.java](https://github.com/marcosperanza/tms/blob/17bf95ea5b5b6e726f5ffe6872c655fdd104bbcc/src/main/java/com/oracle/interview/db/ActivityRepository.java)
+- username: basic
+- password: secret
+
+
+The entity contains all tasks created by the user. The not authenticated users will store the activity as __GUEST__ so all can reads/writes elements. 
+Authenticated users have their own space in the database.
+
+The DB access is regulated from an interface [ActivityRepository.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/db/ActivityRepository.java)
+
+#### Authentication
+
+The server uses a **Basic Authentication** all RESTs have an optional authentication, so the app works also if the users are not authenticated.
+The only REST api that requires authentication is the remove all data from database.:
+
+```java 
+@DELETE
+@UnitOfWork
+@RolesAllowed("AUTHENTICATED")
+public Response removeAll()`
+```
+
+For semplicity I've implemented a [LoginController.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/resources/LoginController.java) to handle a very-very basic auth. 
 
 
 #### REST
 
-The REST APIs are defined in [ActivityController.java](https://github.com/marcosperanza/tms/blob/17bf95ea5b5b6e726f5ffe6872c655fdd104bbcc/src/main/java/com/oracle/interview/resources/ActivityController.java)
+The REST APIs are defined in [ActivityController.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/resources/ActivityController.java)
 and the CRUD APIs are documented with OpenAPI annotation, here is a screenshot that shows the exposed APIs
 
 ![swagger.png](swagger.png)
+
