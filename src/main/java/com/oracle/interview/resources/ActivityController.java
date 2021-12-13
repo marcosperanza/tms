@@ -3,18 +3,21 @@ package com.oracle.interview.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.oracle.interview.db.ActivityRepository;
 import com.oracle.interview.db.entity.Activity;
+import com.oracle.interview.db.entity.User;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+
+import static com.oracle.interview.auth.SimpleDatabaseAuthenticator.GUEST_USER;
 
 @Path("/activity")
 @Produces(MediaType.APPLICATION_JSON)
@@ -37,7 +40,8 @@ public class ActivityController {
     @POST
     @Timed
     @UnitOfWork
-    public Response add(Activity activity){
+    public Response add(@ApiParam(name = "user", hidden = true) @Auth Optional<User> user, Activity activity) {
+        activity.setUser(user.orElse(GUEST_USER));
         Activity a = repository.addActivity(activity);
         return Response.created(URI.create("/activity/" + a.getId())).entity(a).build();
     }
@@ -51,8 +55,8 @@ public class ActivityController {
     @GET
     @Timed
     @UnitOfWork
-    public Response activities() {
-        Optional<List<Activity>> activities = repository.getActivities();
+    public Response activities(@ApiParam(name = "user", hidden = true) @Auth Optional<User> user) {
+        Optional<List<Activity>> activities = repository.getActivities(user.orElse(GUEST_USER));
         if (!activities.isPresent()) {
             return Response.status(Response.Status.NO_CONTENT).build();
         }
@@ -99,6 +103,7 @@ public class ActivityController {
             @ApiResponse(code = 500, message = "In case of error") })
     @DELETE
     @UnitOfWork
+    @RolesAllowed("AUTHENTICATED")
     public Response removeAll() {
         int entity = repository.removeAll();
         return Response.status(Response.Status.OK).entity(entity).build();
@@ -112,7 +117,8 @@ public class ActivityController {
             @ApiResponse(code = 500, message = "In case of error") })
     @PUT
     @UnitOfWork
-    public Response edit(Activity activity){
+    public Response edit(@ApiParam(name = "user", hidden = true) @Auth Optional<User> user, Activity activity){
+        activity.setUser(user.orElse(GUEST_USER));
         Optional<Activity> a = repository.editActivity(activity);
         if (!a.isPresent()) {
             return  Response.status(Response.Status.NOT_FOUND).build();

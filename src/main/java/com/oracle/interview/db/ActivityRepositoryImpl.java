@@ -1,12 +1,11 @@
 package com.oracle.interview.db;
 
 import com.oracle.interview.db.entity.Activity;
+import com.oracle.interview.db.entity.User;
 import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +30,14 @@ public class ActivityRepositoryImpl extends AbstractDAO<Activity> implements Act
 
     /**
      * {@inheritDoc}
+     * @param user
      */
     @Override
-    public Optional<List<Activity>> getActivities() {
-        List<Activity> activities = list(namedTypedQuery("com.oracle.activity.findAll"));
+    public Optional<List<Activity>> getActivities(User user) {
+        Query<Activity> query = namedTypedQuery("com.oracle.activity.findAll");
+        query.setParameter("user", user);
+        List<Activity> activities = list(query);
+
         if (activities == null || activities.isEmpty())  {
             return Optional.empty();
         }

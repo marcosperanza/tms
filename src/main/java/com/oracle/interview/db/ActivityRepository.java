@@ -2,6 +2,7 @@ package com.oracle.interview.db;
 
 
 import com.oracle.interview.db.entity.Activity;
+import com.oracle.interview.db.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,8 +23,10 @@ public interface ActivityRepository {
     /**
      * Returns the list of the activities stored
      * @return the list of the activities stored
+     * @param user The {@link User} that is logged into the system or a guest
+     * @see com.oracle.interview.auth.SimpleDatabaseAuthenticator
      */
-    Optional<List<Activity>> getActivities();
+    Optional<List<Activity>> getActivities(User user);
 
     /**
      * Returns the {@link Activity} with the same id.

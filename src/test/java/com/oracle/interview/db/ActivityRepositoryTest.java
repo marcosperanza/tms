@@ -1,6 +1,7 @@
 package com.oracle.interview.db;
 
 import com.oracle.interview.db.entity.Activity;
+import com.oracle.interview.db.entity.User;
 import io.dropwizard.testing.junit5.DAOTestExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,13 +12,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.oracle.interview.auth.SimpleDatabaseAuthenticator.GUEST_USER;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 class ActivityRepositoryTest {
 
     public DAOTestExtension daoTestRule = DAOTestExtension.newBuilder()
+            .customizeConfiguration(configuration -> {
+
+            })
             .addEntityClass(Activity.class)
+            .addEntityClass(User.class)
             .build();
 
     private ActivityRepository activityRepository;
@@ -46,12 +52,12 @@ class ActivityRepositoryTest {
     @Test
     void getActivities() {
         daoTestRule.inTransaction(() -> {
-            activityRepository.addActivity(new Activity("TEST", 1, false));
-            activityRepository.addActivity(new Activity("TEST 2", 1, false));
-            activityRepository.addActivity(new Activity("TEST 3", 1, true));
+            activityRepository.addActivity(new Activity("TEST", 1, false, GUEST_USER));
+            activityRepository.addActivity(new Activity("TEST 2", 1, false, GUEST_USER));
+            activityRepository.addActivity(new Activity("TEST 3", 1, true, GUEST_USER));
         });
 
-        Optional<List<Activity>> activities = activityRepository.getActivities();
+        Optional<List<Activity>> activities = activityRepository.getActivities(GUEST_USER);
 
         assertTrue(activities.isPresent());
         assertEquals(3, activities.get().size());
@@ -76,12 +82,12 @@ class ActivityRepositoryTest {
     void editActivity() {
         AtomicReference<Activity> activity = new AtomicReference<>();
         daoTestRule.inTransaction(() -> {
-            activityRepository.addActivity(new Activity("TEST", 1, false));
-            activity.set(activityRepository.addActivity(new Activity("TEST 2", 1, false)));
-            activityRepository.addActivity(new Activity("TEST 3", 1, true));
+            activityRepository.addActivity(new Activity("TEST", 1, false, GUEST_USER));
+            activity.set(activityRepository.addActivity(new Activity("TEST 2", 1, false, GUEST_USER)));
+            activityRepository.addActivity(new Activity("TEST 3", 1, true, GUEST_USER));
         });
 
-        Activity toBeEdited = new Activity("TEST 2", 1, true);
+        Activity toBeEdited = new Activity("TEST 2", 1, true, GUEST_USER);
         toBeEdited.setId(activity.get().getId());
 
         Optional<Activity> activityById = activityRepository.editActivity(toBeEdited);
@@ -89,7 +95,7 @@ class ActivityRepositoryTest {
         assertTrue(activityById.isPresent());
         assertEquals(toBeEdited, activityById.get());
 
-        assertEquals(3, activityRepository.getActivities().get().size());
+        assertEquals(3, activityRepository.getActivities(GUEST_USER).get().size());
         assertTrue( activityRepository.getActivityById(activity.get().getId()).get().isDone());
     }
 

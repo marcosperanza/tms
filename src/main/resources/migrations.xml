@@ -16,6 +16,35 @@
             </column>
             <column name="date" type="java.lang.Long"/>
             <column name="done" type="boolean"/>
+            <column name="user" type="varchar(255)" >
+                <constraints nullable="true"/>
+            </column>
         </createTable>
+
+        <createTable tableName="users">
+            <column name="username" type="varchar(255)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="role" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint baseTableName="activities" baseColumnNames="user" constraintName="fk"
+                                 referencedTableName="users" referencedColumnNames="username"/>
+
+
+        <insert tableName="users">
+            <column name="username">guest</column>
+            <column name="role">BASIC</column>
+        </insert>
+        <insert tableName="users">
+            <column name="username">auth</column>
+            <column name="password">secret</column>
+            <column name="role">AUTHENTICATED</column>
+        </insert>
     </changeSet>
 </databaseChangeLog>

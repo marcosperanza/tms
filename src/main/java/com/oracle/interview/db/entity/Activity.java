@@ -1,5 +1,6 @@
 package com.oracle.interview.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -13,7 +14,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "activities")
 @NamedQueries({
-    @NamedQuery(name = "com.oracle.activity.findAll", query = "SELECT a FROM Activity a"),
+
+    @NamedQuery(name = "com.oracle.activity.findAll", query = "SELECT a FROM Activity a where a.user = :user"),
+
     @NamedQuery(name = "com.oracle.activity.update", query = "update Activity set done = :done where id = :id"),
     @NamedQuery(name = "com.oracle.activity.deleteAll", query = "delete from Activity "),
     @NamedQuery(name = "com.oracle.activity.deleteById", query = "delete from Activity where id = :id")
@@ -39,6 +42,11 @@ public class Activity {
     @Column(name = "done")
     private boolean done;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name = "user")
+    @JsonIgnore
+    private User user;
+
     public Activity() {
     }
 
@@ -46,6 +54,13 @@ public class Activity {
         this.description = description;
         this.date = date;
         this.done = done;
+    }
+
+    public Activity(String description, long date, boolean done, User user) {
+        this.description = description;
+        this.date = date;
+        this.done = done;
+        this.user = user;
     }
 
     public void setId(String id) {
@@ -80,17 +95,24 @@ public class Activity {
         this.done = done;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Activity that = (Activity) o;
-        return date == that.date && done == that.done && Objects.equals(id, that.id) && Objects.equals(description, that.description);
+        Activity activity = (Activity) o;
+        return date == activity.date && done == activity.done && Objects.equals(id, activity.id) && Objects.equals(description, activity.description) && Objects.equals(user, activity.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, date, done);
+        return Objects.hash(id, description, date, done, user);
     }
 }
