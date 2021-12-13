@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/containers/Header.tsx</title>
+    <title>Code coverage report for src/containers/Body.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/containers</a> Header.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/containers</a> Body.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -84,8 +84,7 @@
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
 <a name='L21'></a><a href='#L21'>21</a>
-<a name='L22'></a><a href='#L22'>22</a>
-<a name='L23'></a><a href='#L23'>23</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L22'></a><a href='#L22'>22</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,7 +97,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -109,26 +107,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {ActivityState} from "../store/reducer";
 import {Dispatch} from "react";
-import {login} from "../store/actionCreators";
 import {connect} from "react-redux";
-import {Header} from "../components/Header";
+import {Body} from "../components/Body";
+import {loginUserName} from "../store/actionCreators";
 &nbsp;
 const mapStateToProps = <span class="fstat-no" title="function not covered" >(s</span>tate: ActivityState) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-    username: state.username
+    username: state.username,
 })
 &nbsp;
 const mapDispatchToProps = <span class="fstat-no" title="function not covered" >(d</span>ispatch: Dispatch&lt;any&gt;) =&gt; {
 <span class="cstat-no" title="statement not covered" >    return {</span>
-        login: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >login(dispatch)</span>
+        loggedUserName: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >loginUserName(dispatch)</span>
     }
 }
 &nbsp;
 /**
- * The container of the {@link NewActivity} component. The goal of this container is to decoupling the redux pattern
+ * The container of the {@link Body} component. The goal of this container is to decoupling the redux pattern
  * to the component itself.
- * It inject the {@link ActivityState} in the component Props.
  */
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Body)
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
