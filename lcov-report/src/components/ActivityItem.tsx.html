@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>12/15</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">71.42% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>12/14</span>
             </div>
         
             
@@ -151,7 +151,22 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,8 +214,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,7 +261,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,6 +274,8 @@ import {format} from "date-fns";
 import {Button} from "primereact/button";
 import classNames from "classnames";
 import {ProgressInfo} from "../type";
+import {confirmPopup} from "primereact/confirmpopup";
+import {Tooltip} from "primereact/tooltip";
 &nbsp;
 /**
  * The {@link ActivityItem}  properties.
@@ -258,7 +288,6 @@ type Props = {
 }
 &nbsp;
 type ActivityItemState = {
-&nbsp;
 }
 &nbsp;
 /**
@@ -287,6 +316,18 @@ export default class ActivityItem extends React.Component&lt;Props, ActivityItem
                 || this.props.loading.remove.indexOf(this.props.activity.id!) !== -1
     }
 &nbsp;
+    accept = <span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >this.props.removeActivity(this.props.activity) </span>};
+&nbsp;
+    confirm1 = <span class="fstat-no" title="function not covered" >(e</span>vent: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >        confirmPopup({</span>
+            target: event.currentTarget,
+            message: 'Are you sure you want to proceed?',
+            icon: 'pi pi-exclamation-triangle',
+            accept: this.accept
+        });
+    };
+&nbsp;
+&nbsp;
     render() {
         return (
             &lt;div className={classNames({
@@ -303,7 +344,8 @@ export default class ActivityItem extends React.Component&lt;Props, ActivityItem
                "done": this.props.activity.done
             })}&gt;
                 &lt;div className="description-block flex flex-column flex-nowrap"&gt;
-                    &lt;div className="description-item" &gt;
+                    &lt;Tooltip target=".description-item" /&gt;
+                    &lt;div data-pr-tooltip={this.props.activity.description} className="description-item" &gt;
                         {this.props.activity.description}
                     &lt;/div&gt;
                     &lt;div className="date-item my-2"&gt;
@@ -319,10 +361,10 @@ export default class ActivityItem extends React.Component&lt;Props, ActivityItem
 &nbsp;
                     &lt;Button icon="pi pi-times"
                             disabled={this.isLoading()}
-&nbsp;
                             className="p-button-rounded p-button-text my-auto p-button-danger"
-                            onClick={<span class="fstat-no" title="function not covered" >(e</span>vent) =&gt; <span class="cstat-no" title="statement not covered" >this.props.removeActivity(this.props.activity) </span>}
+                            onClick={this.confirm1}
                     /&gt;
+&nbsp;
                 &lt;/div&gt;
             &lt;/div&gt;);
     }
@@ -334,7 +376,7 @@ export default class ActivityItem extends React.Component&lt;Props, ActivityItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Mon Dec 13 2021 14:39:41 GMT+0000 (Coordinated Universal Time)
+                at Mon Dec 13 2021 22:27:52 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
