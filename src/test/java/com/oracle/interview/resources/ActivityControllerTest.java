@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static com.oracle.interview.auth.SimpleDatabaseAuthenticator.GUEST_USER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -60,7 +61,7 @@ class ActivityControllerTest {
         guestUserActivity.setId("11-22-33");
         guestUserActivity.setDate(1L);
         guestUserActivity.setDescription("TEST");
-        guestUserActivity.setUser(SimpleDatabaseAuthenticator.GUEST_USER);
+        guestUserActivity.setUser(GUEST_USER);
 
         normalUserActivity = new Activity();
         normalUserActivity.setId("11-22-33-44");
@@ -80,7 +81,7 @@ class ActivityControllerTest {
 
     @Test
     void activities() {
-        when(repository.getActivities(any())).thenReturn(Optional.of(Collections.singletonList(guestUserActivity)));
+        when(repository.getActivities(GUEST_USER)).thenReturn(Optional.of(Collections.singletonList(guestUserActivity)));
 
         List found = RULE.target("/activity").request().get(List.class);
 
