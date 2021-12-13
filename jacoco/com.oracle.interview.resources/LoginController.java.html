@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LoginController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TMS</a> &gt; <a href="index.source.html" class="el_package">com.oracle.interview.resources</a> &gt; <span class="el_source">LoginController.java</span></div><h1>LoginController.java</h1><pre class="source lang-java linenums">package com.oracle.interview.resources;
 
+import com.oracle.interview.auth.SimpleDatabaseAuthenticator;
 import com.oracle.interview.db.entity.User;
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.*;
@@ -15,9 +16,9 @@ import java.util.Optional;
 public class LoginController {
 
 
-<span class="fc" id="L18">    public LoginController() {</span>
+<span class="fc" id="L19">    public LoginController() {</span>
 
-<span class="fc" id="L20">    }</span>
+<span class="fc" id="L21">    }</span>
 
 
     @ApiOperation(value = &quot;Simple Login, tht uses basic auth&quot;, response = Iterable.class, tags = &quot;LoginController&quot;)
@@ -29,7 +30,20 @@ public class LoginController {
     @GET
     @PermitAll
     public Response simpleBasicLogin(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth User user) {
-<span class="nc" id="L32">        return Response.ok().entity(user.getUsername()).build();</span>
+<span class="fc" id="L33">        return Response.ok().entity(user.getUsername()).build();</span>
+    }
+
+
+    @ApiOperation(value = &quot;Get logged username&quot;, response = Iterable.class, tags = &quot;LoginController&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;Success|OK&quot;),
+            @ApiResponse(code = 401, message = &quot;UNAUTHORIZED&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;)
+    })
+    @GET
+    @Path(&quot;/username&quot;)
+    public Response loggedUserName(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user) {
+<span class="fc" id="L46">        return Response.ok().entity(user.orElse(SimpleDatabaseAuthenticator.GUEST_USER).getUsername()).build();</span>
     }
 
 
