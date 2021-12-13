@@ -1,4 +1,5 @@
 com.oracle.interview
+com.oracle.interview.auth
 com.oracle.interview.db
 com.oracle.interview.db.entity
 com.oracle.interview.resources
