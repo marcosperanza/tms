@@ -59,7 +59,7 @@ class LoginControllerTest {
 
         when(repositoryUSer.getUser(any())).thenReturn(Optional.of(authUser));
 
-        String found = RULE.target("/login")
+        String found = RULE.target("/auth")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, credential)
                 .get(String.class);
@@ -73,7 +73,7 @@ class LoginControllerTest {
 
         when(repositoryUSer.getUser(any())).thenReturn(Optional.of(authUser));
 
-        String found = RULE.target("/login/username")
+        String found = RULE.target("/auth/username")
                 .request()
                 .header(HttpHeaders.AUTHORIZATION, credential)
                 .get(String.class);

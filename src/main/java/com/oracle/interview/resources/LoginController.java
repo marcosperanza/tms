@@ -11,7 +11,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
 
-@Path("/login")
+
+/**
+ * Quick and dirty PoC for basic auth.
+ * is based on Basic auth
+ */
+@Path("/auth")
 @Api(value = "LoginController")
 public class LoginController {
 
@@ -44,6 +49,17 @@ public class LoginController {
     @Path("/username")
     public Response loggedUserName(@ApiParam(name = "user", hidden = true) @Auth Optional<User> user) {
         return Response.ok().entity(user.orElse(SimpleDatabaseAuthenticator.GUEST_USER).getUsername()).build();
+    }
+
+    @ApiOperation(value = "Logout", response = Iterable.class, tags = "LoginController")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 401, message = "UNAUTHORIZED"),
+    })
+    @GET
+    @Path("/logout")
+    public Response logout(@ApiParam(name = "user", hidden = true) @Auth User user) {
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
 
