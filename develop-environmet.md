@@ -40,9 +40,6 @@ cd `tms-ui`
 npm install
 npm run build
 docker build -t marcosperanza79/tms-ui -f Dockerfile .
-``` 
-
-```
 docker-compose -f src/main/docker/conf/docker-stack.yml up
 ```
 
