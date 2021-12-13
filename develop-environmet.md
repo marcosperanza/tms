@@ -12,13 +12,19 @@ Run TMS locally
 
 1. Clone repo [TMS server](https://github.com/marcosperanza/tms)  and [TMS UI](https://github.com/marcosperanza/tms-ui)
 2. cd `tms`
+
+
 ```
 mvn clean install
 java -jar target/task-management-system-1.0-SNAPSHOT.jar db migrate config.yml
 java -jar target/task-management-system-1.0-SNAPSHOT.jar server config.yml
 
 ``` 
+
+
 4. cd `tms-ui`
+
+
 ```
 npm install
 npm run generate
@@ -27,7 +33,9 @@ npm start
 
 Run TMS on docker
 ---
+
 cd `tms`
+
 
 ```
 mvn clean install
@@ -35,6 +43,7 @@ docker build -t marcosperanza79/tms -f target/docker/Dockerfile .
 ``` 
 
 cd `tms-ui`
+
 
 ```
 npm install
