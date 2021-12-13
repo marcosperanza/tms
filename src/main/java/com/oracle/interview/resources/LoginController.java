@@ -1,5 +1,6 @@
 package com.oracle.interview.resources;
 
+import com.oracle.interview.auth.SimpleDatabaseAuthenticator;
 import com.oracle.interview.db.entity.User;
 import io.dropwizard.auth.Auth;
 import io.swagger.annotations.*;
@@ -30,6 +31,19 @@ public class LoginController {
     @PermitAll
     public Response simpleBasicLogin(@ApiParam(name = "user", hidden = true) @Auth User user) {
         return Response.ok().entity(user.getUsername()).build();
+    }
+
+
+    @ApiOperation(value = "Get logged username", response = Iterable.class, tags = "LoginController")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success|OK"),
+            @ApiResponse(code = 401, message = "UNAUTHORIZED"),
+            @ApiResponse(code = 500, message = "In case of error")
+    })
+    @GET
+    @Path("/username")
+    public Response loggedUserName(@ApiParam(name = "user", hidden = true) @Auth Optional<User> user) {
+        return Response.ok().entity(user.orElse(SimpleDatabaseAuthenticator.GUEST_USER).getUsername()).build();
     }
 
 
