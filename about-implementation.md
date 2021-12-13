@@ -17,10 +17,6 @@ The first implementation uses two entities
 
 predefined users are
 ```xml
- <insert tableName="users">
-  <column name="username">guest</column>
-  <column name="role">BASIC</column>
-</insert>
 <insert tableName="users">
   <column name="username">auth</column>
   <column name="password">secret</column>
