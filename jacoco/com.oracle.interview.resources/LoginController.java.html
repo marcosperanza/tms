@@ -11,14 +11,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 import java.util.Optional;
 
-@Path(&quot;/login&quot;)
+
+/**
+ * Quick and dirty PoC for basic auth.
+ * is based on Basic auth
+ */
+@Path(&quot;/auth&quot;)
 @Api(value = &quot;LoginController&quot;)
 public class LoginController {
 
 
-<span class="fc" id="L19">    public LoginController() {</span>
+<span class="fc" id="L24">    public LoginController() {</span>
 
-<span class="fc" id="L21">    }</span>
+<span class="fc" id="L26">    }</span>
 
 
     @ApiOperation(value = &quot;Simple Login, tht uses basic auth&quot;, response = Iterable.class, tags = &quot;LoginController&quot;)
@@ -30,7 +35,7 @@ public class LoginController {
     @GET
     @PermitAll
     public Response simpleBasicLogin(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth User user) {
-<span class="fc" id="L33">        return Response.ok().entity(user.getUsername()).build();</span>
+<span class="fc" id="L38">        return Response.ok().entity(user.getUsername()).build();</span>
     }
 
 
@@ -43,7 +48,18 @@ public class LoginController {
     @GET
     @Path(&quot;/username&quot;)
     public Response loggedUserName(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user) {
-<span class="fc" id="L46">        return Response.ok().entity(user.orElse(SimpleDatabaseAuthenticator.GUEST_USER).getUsername()).build();</span>
+<span class="fc" id="L51">        return Response.ok().entity(user.orElse(SimpleDatabaseAuthenticator.GUEST_USER).getUsername()).build();</span>
+    }
+
+    @ApiOperation(value = &quot;Logout&quot;, response = Iterable.class, tags = &quot;LoginController&quot;)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = &quot;OK&quot;),
+            @ApiResponse(code = 401, message = &quot;UNAUTHORIZED&quot;),
+    })
+    @GET
+    @Path(&quot;/logout&quot;)
+    public Response logout(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth User user) {
+<span class="nc" id="L62">        return Response.status(Response.Status.UNAUTHORIZED).build();</span>
     }
 
 
