@@ -46,5 +46,11 @@
             <column name="password">secret</column>
             <column name="role">AUTHENTICATED</column>
         </insert>
+        <insert tableName="users">
+            <column name="username">basic</column>
+            <column name="password">secret</column>
+            <column name="role">BASIC</column>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>
