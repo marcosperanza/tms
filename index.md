@@ -17,7 +17,7 @@
 
 The user interface has been designed to manage a personal _TODO list_.
 
-![](Recording-_14.gif)
+![](Recording-_17.gif)
 
 
 #### Mobile
@@ -29,8 +29,11 @@ This is an example of the home page on a iPhone 5/SE
 
 ![home-mobile](mobile-home.png)
 
+
 and this is the dedicated calendar data chooser:
 
 ![calendar-mobile](calendar-mobile.png)
+
+
 
 
