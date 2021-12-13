@@ -16,11 +16,23 @@ The first implementation uses two entities
 - [User.java](https://github.com/marcosperanza/tms/blob/master/src/main/java/com/oracle/interview/db/entity/User.java) to manage the _users_ list
 
 predefined users are
-- username: auth
-- password: secret
+```xml
+ <insert tableName="users">
+  <column name="username">guest</column>
+  <column name="role">BASIC</column>
+</insert>
+<insert tableName="users">
+  <column name="username">auth</column>
+  <column name="password">secret</column>
+  <column name="role">AUTHENTICATED</column>
+</insert>
+<insert tableName="users">
+  <column name="username">basic</column>
+  <column name="password">secret</column>
+  <column name="role">BASIC</column>
+</insert>
+```
 
-- username: basic
-- password: secret
 
 
 The entity contains all tasks created by the user. The not authenticated users will store the activity as __GUEST__ so all can reads/writes elements. 
