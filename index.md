@@ -10,7 +10,7 @@
 - [Development/Performance test and BDD](https://marcosperanza.github.io/tms/develop-environmet.html)
 - [CI/CD](https://marcosperanza.github.io/tms/ci-cd.html)
 - [Code Coverage report](https://marcosperanza.github.io/tms/jacoco/index.html) /  [Code Coverage UI report](https://marcosperanza.github.io/tms/lcov-report/index.html)
-- [JacaDocs](https://marcosperanza.github.io/tms/apidocs/index.html) 
+- [JavaDocs](https://marcosperanza.github.io/tms/apidocs/index.html) 
 
 
 ### Application
