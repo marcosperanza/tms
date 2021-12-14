@@ -1,7 +1,7 @@
 ## Welcome to TMS REST server
 
 [The Task Management System (TMS)](https://github.com/marcosperanza/tms) is a simple REST server that serves APIs for managing your own activity tasks.
-[The Task Management System User interface (TMS-UI)](https://github.com/marcosperanza/tms-ui) is ReactJS application that allow the user to manage a personal TODO list.
+[The Task Management System User interface (TMS-UI)](https://github.com/marcosperanza/tms-ui) is ReactJS application that allows the user to manage a personal TODO list.
 
 # Table of content
 - [About implementation](https://marcosperanza.github.io/tms/about-implementation.html)
