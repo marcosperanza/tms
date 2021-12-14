@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -82,9 +83,8 @@ class ActivityControllerTest {
     @Test
     void activities() {
         when(repository.getActivities(GUEST_USER)).thenReturn(Optional.of(Collections.singletonList(guestUserActivity)));
-
-        List found = RULE.target("/activity").request().get(List.class);
-
+        GenericType<List<Activity>> list = new GenericType<>(List.class);
+        List<Activity> found = RULE.target("/activity").request().get(list);
         assertEquals(1, found.size());
     }
 

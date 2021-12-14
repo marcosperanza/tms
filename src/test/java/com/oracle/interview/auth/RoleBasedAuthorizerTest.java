@@ -16,11 +16,14 @@ class RoleBasedAuthorizerTest {
     }
 
     @Test
-    void name() {
+    void authorizeUsersBasedOnRole() {
         User u = new User("marco", "pass", "SUPER-SYAN");
         assertTrue(underTest.authorize(u, "SUPER-SYAN"));
+    }
+
+    @Test
+    void unAuthorizeUsersWithDifferentRoles() {
+        User u = new User("marco", "pass", "SUPER-SYAN");
         assertFalse(underTest.authorize(u, "NORMAL"));
-
-
     }
 }
