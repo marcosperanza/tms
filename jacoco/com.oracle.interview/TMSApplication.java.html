@@ -89,28 +89,29 @@ import java.util.stream.Stream;
 <span class="fc" id="L89">        OpenAPI oas = new OpenAPI();</span>
 <span class="fc" id="L90">        Info info = new Info()</span>
 <span class="fc" id="L91">                .title(&quot;TMS API&quot;)</span>
-<span class="fc" id="L92">                .description(&quot;RESTful Task managemnt system.&quot;)</span>
+<span class="fc" id="L92">                .description(&quot;RESTful Task management system.&quot;)</span>
 <span class="fc" id="L93">                .termsOfService(&quot;https://marcosperanza.github.io/tms/&quot;)</span>
-<span class="fc" id="L94">                .contact(new Contact().email(&quot;marco.speranza79@gmail.com&quot;));</span>
+<span class="fc" id="L94">                .version(&quot;1&quot;)</span>
+<span class="fc" id="L95">                .contact(new Contact().email(&quot;marco.speranza79@gmail.com&quot;));</span>
 
-<span class="fc" id="L96">        oas.info(info);</span>
-<span class="fc" id="L97">        SwaggerConfiguration oasConfig = new SwaggerConfiguration()</span>
-<span class="fc" id="L98">                .openAPI(oas)</span>
-<span class="fc" id="L99">                .prettyPrint(true)</span>
-<span class="fc" id="L100">                .resourcePackages(Stream.of(&quot;com.oracle.interview.resources&quot;)</span>
-<span class="fc" id="L101">                        .collect(Collectors.toSet()));</span>
+<span class="fc" id="L97">        oas.info(info);</span>
+<span class="fc" id="L98">        SwaggerConfiguration oasConfig = new SwaggerConfiguration()</span>
+<span class="fc" id="L99">                .openAPI(oas)</span>
+<span class="fc" id="L100">                .prettyPrint(true)</span>
+<span class="fc" id="L101">                .resourcePackages(Stream.of(&quot;com.oracle.interview.resources&quot;)</span>
+<span class="fc" id="L102">                        .collect(Collectors.toSet()));</span>
 
-<span class="fc" id="L103">        environment.jersey().register(new OpenApiResource()</span>
-<span class="fc" id="L104">                .openApiConfiguration(oasConfig));</span>
+<span class="fc" id="L104">        environment.jersey().register(new OpenApiResource()</span>
+<span class="fc" id="L105">                .openApiConfiguration(oasConfig));</span>
 
-<span class="fc" id="L106">    }</span>
+<span class="fc" id="L107">    }</span>
 
 
-<span class="fc" id="L109">    private final HibernateBundle&lt;TMSConfiguration&gt; hibernateBundle =</span>
-<span class="fc" id="L110">            new HibernateBundle&lt;TMSConfiguration&gt;(Activity.class, User.class) {</span>
+<span class="fc" id="L110">    private final HibernateBundle&lt;TMSConfiguration&gt; hibernateBundle =</span>
+<span class="fc" id="L111">            new HibernateBundle&lt;TMSConfiguration&gt;(Activity.class, User.class) {</span>
                 @Override
                 public DataSourceFactory getDataSourceFactory(TMSConfiguration configuration) {
-<span class="fc" id="L113">                    return configuration.getDataSourceFactory();</span>
+<span class="fc" id="L114">                    return configuration.getDataSourceFactory();</span>
                 }
             };
 }
