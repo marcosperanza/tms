@@ -22,7 +22,7 @@ The user interface has been designed to manage a personal _TODO list_.
 
 #### Mobile
 
-The ui is reactive to the small screen, a breakpoint has been added on medium screen (768px) and an optimized for mobile calendar 
+The ui is responsive to the small screen, a breakpoint has been added on medium screen (768px) and an optimized for mobile calendar 
 widget has been used.
 
 This is an example of the home page on a iPhone 5/SE
