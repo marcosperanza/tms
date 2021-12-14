@@ -34,14 +34,6 @@ npm start
 Run TMS on docker
 ---
 
-cd `tms`
-
-
-```
-mvn clean install
-docker build -t marcosperanza79/tms -f target/docker/Dockerfile .
-``` 
-
 cd `tms-ui`
 
 
@@ -49,8 +41,18 @@ cd `tms-ui`
 npm install
 npm run build
 docker build -t marcosperanza79/tms-ui -f Dockerfile .
-docker-compose -f src/main/docker/conf/docker-stack.yml up
 ```
+
+
+cd `tms`
+
+
+```
+mvn clean install
+docker build -t marcosperanza79/tms -f target/docker/Dockerfile .
+docker-compose -f src/main/docker/conf/docker-stack.yml up
+
+``` 
 
 Performance
 ---
