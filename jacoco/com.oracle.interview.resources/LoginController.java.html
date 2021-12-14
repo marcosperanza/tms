@@ -55,8 +55,8 @@ public class LoginController {
 <span class="fc" id="L55">        Optional&lt;User&gt; user = daoUser.getUser(u.getUsername());</span>
 <span class="pc bpc" id="L56" title="2 of 4 branches missed.">        if (user.isPresent() &amp;&amp;  u.getPassword().equals(user.get().getPassword())) {</span>
 <span class="fc" id="L57">            String encodeToString = Base64.getEncoder().encodeToString((u.getUsername() + &quot;:&quot; + u.getPassword()).getBytes(StandardCharsets.UTF_8));</span>
-<span class="fc" id="L58">            Cookie c = new Cookie(&quot;SSID&quot;, encodeToString, &quot;/&quot;, null);</span>
-<span class="fc" id="L59">            NewCookie cookie = new NewCookie(c);</span>
+<span class="fc" id="L58">            Cookie c = new Cookie(&quot;SSID&quot;, encodeToString);</span>
+<span class="fc" id="L59">            NewCookie cookie = new NewCookie(c, &quot;&quot;, 86400, false);</span>
 <span class="fc" id="L60">            return Response.ok().entity(u.getUsername()).cookie(cookie).build();</span>
         }
 
@@ -84,7 +84,7 @@ public class LoginController {
     @GET
     @Path(&quot;/logout&quot;)
     public Response logout() {
-<span class="nc" id="L87">        Cookie c = new Cookie(&quot;SSID&quot;, &quot;&quot;, &quot;/&quot;, null);</span>
+<span class="nc" id="L87">        Cookie c = new Cookie(&quot;SSID&quot;, &quot;&quot;);</span>
 <span class="nc" id="L88">        NewCookie cookie = new NewCookie(c, &quot;&quot;, 0, false);</span>
 <span class="nc" id="L89">        return Response.status(Response.Status.OK).cookie(cookie).build();</span>
     }
