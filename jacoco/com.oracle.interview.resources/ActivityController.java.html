@@ -6,15 +6,9 @@ import com.oracle.interview.db.entity.Activity;
 import com.oracle.interview.db.entity.User;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.media.ArraySchema;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.annotations.*;
 
+import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,156 +22,108 @@ import static com.oracle.interview.auth.SimpleDatabaseAuthenticator.GUEST_USER;
 @Path(&quot;/activity&quot;)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Tag(name = &quot;ActivityController&quot;)
+@Api(value = &quot;ActivityController&quot;)
 public class ActivityController {
 
     private final ActivityRepository repository;
 
-<span class="fc" id="L36">    public ActivityController(ActivityRepository repository) {</span>
-<span class="fc" id="L37">        this.repository = repository;</span>
-<span class="fc" id="L38">    }</span>
+<span class="fc" id="L30">    public ActivityController(ActivityRepository repository) {</span>
+<span class="fc" id="L31">        this.repository = repository;</span>
+<span class="fc" id="L32">    }</span>
 
 
-    /**
-     * Add a new {@link Activity} in the store.
-     * the APIs has an optional {@link Auth}: an unauthenticated user will be logged as GUESTù
-     *
-     * @param user The optional user
-     * @param activity The {@link Activity} to add
-     * @return the Response
-     */
-    @Operation(summary = &quot;Add a new activity&quot;, tags = &quot;ActivityController&quot;)
+    @ApiOperation(value = &quot;Add a new activity &quot;, response = Activity.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Created&quot;, content = @Content(schema = @Schema(implementation = Activity.class))),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
+            @ApiResponse(code = 201, message = &quot;Created&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;),
     })
     @POST
     @Timed
     @UnitOfWork
-    public Response add(@Parameter(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user,
-                        @Parameter(name = &quot;activity&quot;, required = true) Activity activity) {
-<span class="fc" id="L59">        activity.setUser(user.orElse(GUEST_USER));</span>
-<span class="fc" id="L60">        Activity a = repository.addActivity(activity);</span>
-<span class="fc" id="L61">        return Response.created(URI.create(&quot;/activity/&quot; + a.getId())).entity(a).build();</span>
+    public Response add(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user, Activity activity) {
+<span class="fc" id="L44">        activity.setUser(user.orElse(GUEST_USER));</span>
+<span class="fc" id="L45">        Activity a = repository.addActivity(activity);</span>
+<span class="fc" id="L46">        return Response.created(URI.create(&quot;/activity/&quot; + a.getId())).entity(a).build();</span>
     }
 
-
-    /**
-     * Get all  {@link Activity}s from the store relative to the logged user.
-     * the APIs has an optional {@link Auth}: an unauthenticated user will be logged as GUEST
-     *
-     * @param user The optional user
-     * @return the Response
-     */
-    @Operation(summary = &quot;Get the list of all activities &quot;, tags = &quot;ActivityController&quot;)
+    @ApiOperation(value = &quot;Get the list of all activities &quot;, response = Iterable.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;201&quot;, description = &quot;Created&quot;, content = { @Content(array = @ArraySchema( schema = @Schema(implementation = Activity.class)))}),
-            @ApiResponse(responseCode = &quot;204&quot;, description = &quot;No content if no activities are found&quot;),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
+            @ApiResponse(code = 200, message = &quot;Success|OK&quot;),
+            @ApiResponse(code = 204, message = &quot;No content if no activities are found&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;)
     })
     @GET
     @Timed
     @UnitOfWork
-    public Response activities(@Parameter(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user) {
-<span class="fc" id="L82">        Optional&lt;List&lt;Activity&gt;&gt; activities = repository.getActivities(user.orElse(GUEST_USER));</span>
-<span class="fc bfc" id="L83" title="All 2 branches covered.">        if (!activities.isPresent()) {</span>
-<span class="fc" id="L84">            return Response.status(Response.Status.NO_CONTENT).build();</span>
+    public Response activities(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user) {
+<span class="fc" id="L59">        Optional&lt;List&lt;Activity&gt;&gt; activities = repository.getActivities(user.orElse(GUEST_USER));</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (!activities.isPresent()) {</span>
+<span class="fc" id="L61">            return Response.status(Response.Status.NO_CONTENT).build();</span>
         }
-<span class="fc" id="L86">        return Response.ok().entity(activities).build();</span>
+<span class="fc" id="L63">        return Response.ok().entity(activities).build();</span>
     }
 
-
-    /**
-     * Get a single {@link Activity} from the store relative to the logged user.
-     *
-     * @param id The   {@link Activity} id
-     * @return the Response
-     */
-    @Operation(summary = &quot;Get a single activity &quot;, tags = &quot;ActivityController&quot;)
+    @ApiOperation(value = &quot;Get a single activity &quot;, response = Activity.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Ok&quot;, content = { @Content(schema = @Schema(implementation = Activity.class))}),
-            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Not found&quot;),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
-    })
+            @ApiResponse(code = 200, message = &quot;Success|OK&quot;, response = Activity.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;) })
     @GET
     @Path(&quot;/{id}&quot;)
     @UnitOfWork
-    public Response activity(@Parameter(name = &quot;id&quot;, required = true) @PathParam(&quot;id&quot;) String id) {
-<span class="fc" id="L106">        Optional&lt;Activity&gt; activity = repository.getActivityById(id);</span>
-<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (!activity.isPresent()) {</span>
-<span class="fc" id="L108">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
+    public Response activity(@PathParam(&quot;id&quot;) String id) {
+<span class="fc" id="L75">        Optional&lt;Activity&gt; activity = repository.getActivityById(id);</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">        if (!activity.isPresent()) {</span>
+<span class="fc" id="L77">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
         }
-<span class="fc" id="L110">        return Response.ok().entity(activity).build();</span>
+<span class="fc" id="L79">        return Response.ok().entity(activity).build();</span>
     }
 
 
-    /**
-     * Remove the pointed  {@link Activity} from the store.
-     *
-     * @param id The   {@link Activity} id
-     * @return the Response
-     */
-    @Operation(summary = &quot;Remove a single activity &quot;, tags = &quot;ActivityController&quot;)
+    @ApiOperation(value = &quot;Remove a single activity &quot;, response = Activity.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Created&quot;, content = { @Content(schema = @Schema(implementation = Activity.class))}),
-            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Not found&quot;),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
-    })
+            @ApiResponse(code = 200, message = &quot;Success|OK&quot;, response = Activity.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;) })
     @DELETE
     @Path(&quot;/{id}&quot;)
     @UnitOfWork
-    public Response remove(@Parameter(name = &quot;id&quot;, required = true)  @PathParam(&quot;id&quot;) String id) {
-<span class="fc" id="L130">        Optional&lt;Activity&gt; activity = repository.removeById(id);</span>
-<span class="fc bfc" id="L131" title="All 2 branches covered.">        if (!activity.isPresent()) {</span>
-<span class="fc" id="L132">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
+    public Response remove(@PathParam(&quot;id&quot;) String id) {
+<span class="fc" id="L92">        Optional&lt;Activity&gt; activity = repository.removeById(id);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        if (!activity.isPresent()) {</span>
+<span class="fc" id="L94">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
         }
-<span class="fc" id="L134">        return Response.status(Response.Status.OK).entity(activity.get()).build();</span>
+<span class="fc" id="L96">        return Response.status(Response.Status.OK).entity(activity.get()).build();</span>
     }
 
-    /**
-     * Remove all  {@link Activity}s from the store.
-     * Only authenticated user with AUTHENTICATED role can execute it
-     *
-     * @return the Response
-     */
-    @Operation(summary = &quot;Remove all activities&quot;, tags = &quot;ActivityController&quot;)
+
+    @ApiOperation(value = &quot;Remove all activities&quot;, response = Activity.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Number of deleted items&quot;, content = { @Content(schema = @Schema(implementation = Integer.class))}),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
-    })
+            @ApiResponse(code = 200, message = &quot;Success|OK: number of deleter activities&quot;, response = Integer.class),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;) })
     @DELETE
     @UnitOfWork
     @RolesAllowed(&quot;AUTHENTICATED&quot;)
     public Response removeAll() {
-<span class="fc" id="L152">        int entity = repository.removeAll();</span>
-<span class="fc" id="L153">        return Response.status(Response.Status.OK).entity(entity).build();</span>
+<span class="fc" id="L108">        int entity = repository.removeAll();</span>
+<span class="fc" id="L109">        return Response.status(Response.Status.OK).entity(entity).build();</span>
     }
 
 
-    /**
-     * Edit  {@link Activity} in  the store.
-     * Only authenticated user with AUTHENTICATED role can execute it
-     *
-     * @param user The optional user
-     * @param activity The {@link Activity} to edit
-     * @return the Response
-     */
-    @Operation(summary = &quot;Edit a single activity &quot;, tags = &quot;ActivityController&quot;)
+    @ApiOperation(value = &quot;Edit a single activity &quot;, response = Activity.class, tags = &quot;ActivityController&quot;)
     @ApiResponses(value = {
-            @ApiResponse(responseCode = &quot;200&quot;, description = &quot;Ok&quot;, content = { @Content(schema = @Schema(implementation = Activity.class))}),
-            @ApiResponse(responseCode = &quot;404&quot;, description = &quot;Not found&quot;),
-            @ApiResponse(responseCode = &quot;500&quot;, description = &quot;In case of error&quot;)
-    })
+            @ApiResponse(code = 200, message = &quot;Success|OK&quot;, response = Activity.class),
+            @ApiResponse(code = 404, message = &quot;Not found&quot;),
+            @ApiResponse(code = 500, message = &quot;In case of error&quot;) })
     @PUT
     @UnitOfWork
-    public Response edit(@Parameter(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user,
-                         @Parameter(name = &quot;activity&quot;, required = true)  Activity activity){
-<span class="fc" id="L175">        activity.setUser(user.orElse(GUEST_USER));</span>
-<span class="fc" id="L176">        Optional&lt;Activity&gt; a = repository.editActivity(activity);</span>
-<span class="fc bfc" id="L177" title="All 2 branches covered.">        if (!a.isPresent()) {</span>
-<span class="fc" id="L178">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
+    public Response edit(@ApiParam(name = &quot;user&quot;, hidden = true) @Auth Optional&lt;User&gt; user, Activity activity){
+<span class="fc" id="L121">        activity.setUser(user.orElse(GUEST_USER));</span>
+<span class="fc" id="L122">        Optional&lt;Activity&gt; a = repository.editActivity(activity);</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (!a.isPresent()) {</span>
+<span class="fc" id="L124">            return  Response.status(Response.Status.NOT_FOUND).build();</span>
         }
-<span class="fc" id="L180">        return Response.ok().entity(a.get()).build();</span>
+<span class="fc" id="L126">        return Response.ok().entity(a.get()).build();</span>
 
     }
 
