@@ -174,7 +174,12 @@
 <a name='L109'></a><a href='#L109'>109</a>
 <a name='L110'></a><a href='#L110'>110</a>
 <a name='L111'></a><a href='#L111'>111</a>
-<a name='L112'></a><a href='#L112'>112</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,6 +200,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,17 +217,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -227,7 +235,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -299,6 +309,7 @@ import {Password} from "primereact/password";
 type Props = {
     login: () =&gt; void;
     username: string;
+    loggedUserName: () =&gt; void;
 }
 &nbsp;
 type HeaderState = {
@@ -325,8 +336,10 @@ export class Header extends React.Component&lt;Props, HeaderState&gt; {
      */
     logout = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        controllerApiInterface.logout().then(<span class="fstat-no" title="function not covered" >va</span>lue =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            window.location.reload()</span>
-        }).catch(<span class="fstat-no" title="function not covered" >re</span>ason =&gt; {<span class="cstat-no" title="statement not covered" >window.location.reload()}</span>);
+<span class="cstat-no" title="statement not covered" >            this.props.loggedUserName();</span>
+        }).catch(<span class="fstat-no" title="function not covered" >re</span>ason =&gt; {
+<span class="cstat-no" title="statement not covered" >            this.props.loggedUserName();</span>
+        });
     }
 &nbsp;
     /**
@@ -336,9 +349,11 @@ export class Header extends React.Component&lt;Props, HeaderState&gt; {
 <span class="cstat-no" title="statement not covered" >        controllerApiInterface.simpleBasicLogin({username: this.state.username, password: this.state.password})</span>
             .then(<span class="fstat-no" title="function not covered" >(v</span>alue: any) =&gt; {
 <span class="cstat-no" title="statement not covered" >                this.setState({...this.state, showLogin: false});</span>
-<span class="cstat-no" title="statement not covered" >                window.location.reload()</span>
+<span class="cstat-no" title="statement not covered" >                this.props.loggedUserName();</span>
             })
-            .catch(<span class="fstat-no" title="function not covered" >re</span>ason =&gt; {<span class="cstat-no" title="statement not covered" >window.location.reload()}</span>)
+            .catch(<span class="fstat-no" title="function not covered" >re</span>ason =&gt; {
+<span class="cstat-no" title="statement not covered" >                this.props.loggedUserName();</span>
+            })
     }
 &nbsp;
     renderFooter = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -403,7 +418,7 @@ export class Header extends React.Component&lt;Props, HeaderState&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Dec 14 2021 18:29:17 GMT+0000 (Coordinated Universal Time)
+                at Tue Dec 14 2021 18:46:17 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
