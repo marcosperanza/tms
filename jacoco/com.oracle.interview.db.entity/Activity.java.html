@@ -16,6 +16,7 @@ import java.util.Objects;
 @NamedQueries({
 
     @NamedQuery(name = &quot;com.oracle.activity.findAll&quot;, query = &quot;SELECT a FROM Activity a where a.user = :user&quot;),
+    @NamedQuery(name = &quot;com.oracle.activity.find&quot;, query = &quot;SELECT a FROM Activity a where a.user = :user and a.id = :id&quot;),
 
     @NamedQuery(name = &quot;com.oracle.activity.update&quot;, query = &quot;update Activity set done = :done where id = :id&quot;),
     @NamedQuery(name = &quot;com.oracle.activity.deleteAll&quot;, query = &quot;delete from Activity &quot;),
@@ -47,73 +48,73 @@ public class Activity {
     @JsonIgnore
     private User user;
 
-<span class="fc" id="L50">    public Activity() {</span>
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L51">    public Activity() {</span>
+<span class="fc" id="L52">    }</span>
 
-<span class="fc" id="L53">    public Activity(String description, long date, boolean done) {</span>
-<span class="fc" id="L54">        this.description = description;</span>
-<span class="fc" id="L55">        this.date = date;</span>
-<span class="fc" id="L56">        this.done = done;</span>
-<span class="fc" id="L57">    }</span>
+<span class="fc" id="L54">    public Activity(String description, long date, boolean done) {</span>
+<span class="fc" id="L55">        this.description = description;</span>
+<span class="fc" id="L56">        this.date = date;</span>
+<span class="fc" id="L57">        this.done = done;</span>
+<span class="fc" id="L58">    }</span>
 
-<span class="fc" id="L59">    public Activity(String description, long date, boolean done, User user) {</span>
-<span class="fc" id="L60">        this.description = description;</span>
-<span class="fc" id="L61">        this.date = date;</span>
-<span class="fc" id="L62">        this.done = done;</span>
-<span class="fc" id="L63">        this.user = user;</span>
-<span class="fc" id="L64">    }</span>
+<span class="fc" id="L60">    public Activity(String description, long date, boolean done, User user) {</span>
+<span class="fc" id="L61">        this.description = description;</span>
+<span class="fc" id="L62">        this.date = date;</span>
+<span class="fc" id="L63">        this.done = done;</span>
+<span class="fc" id="L64">        this.user = user;</span>
+<span class="fc" id="L65">    }</span>
 
     public void setId(String id) {
-<span class="fc" id="L67">        this.id = id;</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L68">        this.id = id;</span>
+<span class="fc" id="L69">    }</span>
 
     public String getId() {
-<span class="fc" id="L71">        return id;</span>
+<span class="fc" id="L72">        return id;</span>
     }
 
     public String getDescription() {
-<span class="fc" id="L75">        return description;</span>
+<span class="fc" id="L76">        return description;</span>
     }
 
     public void setDescription(String description) {
-<span class="fc" id="L79">        this.description = description;</span>
-<span class="fc" id="L80">    }</span>
+<span class="fc" id="L80">        this.description = description;</span>
+<span class="fc" id="L81">    }</span>
 
     public long getDate() {
-<span class="fc" id="L83">        return date;</span>
+<span class="fc" id="L84">        return date;</span>
     }
 
     public void setDate(long date) {
-<span class="fc" id="L87">        this.date = date;</span>
-<span class="fc" id="L88">    }</span>
+<span class="fc" id="L88">        this.date = date;</span>
+<span class="fc" id="L89">    }</span>
 
     public boolean isDone() {
-<span class="fc" id="L91">        return done;</span>
+<span class="fc" id="L92">        return done;</span>
     }
 
     public void setDone(boolean done) {
-<span class="fc" id="L95">        this.done = done;</span>
-<span class="fc" id="L96">    }</span>
+<span class="fc" id="L96">        this.done = done;</span>
+<span class="fc" id="L97">    }</span>
 
     public User getUser() {
-<span class="nc" id="L99">        return user;</span>
+<span class="nc" id="L100">        return user;</span>
     }
 
     public void setUser(User user) {
-<span class="fc" id="L103">        this.user = user;</span>
-<span class="fc" id="L104">    }</span>
+<span class="fc" id="L104">        this.user = user;</span>
+<span class="fc" id="L105">    }</span>
 
     @Override
     public boolean equals(Object o) {
-<span class="fc bfc" id="L108" title="All 2 branches covered.">        if (this == o) return true;</span>
-<span class="pc bpc" id="L109" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
-<span class="fc" id="L110">        Activity activity = (Activity) o;</span>
-<span class="pc bpc" id="L111" title="5 of 10 branches missed.">        return date == activity.date &amp;&amp; done == activity.done &amp;&amp; Objects.equals(id, activity.id) &amp;&amp; Objects.equals(description, activity.description) &amp;&amp; Objects.equals(user, activity.user);</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        if (this == o) return true;</span>
+<span class="pc bpc" id="L110" title="2 of 4 branches missed.">        if (o == null || getClass() != o.getClass()) return false;</span>
+<span class="fc" id="L111">        Activity activity = (Activity) o;</span>
+<span class="pc bpc" id="L112" title="5 of 10 branches missed.">        return date == activity.date &amp;&amp; done == activity.done &amp;&amp; Objects.equals(id, activity.id) &amp;&amp; Objects.equals(description, activity.description) &amp;&amp; Objects.equals(user, activity.user);</span>
     }
 
     @Override
     public int hashCode() {
-<span class="nc" id="L116">        return Objects.hash(id, description, date, done, user);</span>
+<span class="nc" id="L117">        return Objects.hash(id, description, date, done, user);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
